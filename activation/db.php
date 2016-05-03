@@ -14,12 +14,16 @@ function iewp_crunchstats_create_tables()
 				  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 				  `date` int(11) NOT NULL,
 				  `ip` varchar(50) NOT NULL DEFAULT '',
-				  `useragent` varchar(512) NOT NULL DEFAULT '',
+				  `user_agent` varchar(512) NOT NULL DEFAULT '',
 				  `post_id` bigint(20) NOT NULL,
+				  `content_type` varchar(20) NOT NULL DEFAULT '',
+				  `name` varchar(255) NOT NULL DEFAULT '',
 				  `referer` varchar(255) NOT NULL DEFAULT '',
-				  `slug` varchar(255) NOT NULL DEFAULT '',
+				  `search_string` varchar(255) NOT NULL DEFAULT '',
 				  `guid` varchar(255) NOT NULL DEFAULT '',
 				  `title` varchar(255) NOT NULL DEFAULT '',
+				  `window_width` int(6) NOT NULL,
+				  `window_height` int(6) NOT NULL,
 				  PRIMARY KEY (`id`)
 				) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 

@@ -4,75 +4,62 @@
  */
 function iewp_crunchstats_tracking_code()
 {
-	
 	global $wp;
-	//print_r( $_SERVER );
-	//print_r( $wp );
 
 	$endpoint = site_url('/wp-json/corenominal/test');
 
 	// Set some default values
-	$content = 'other';
+	$content_type = 'other';
 	$name = '';
 	$post_id = -1;
 	//$ip = $_SERVER['REMOTE_ADDR'];
-	//$user_agent = $_SERVER['HTTP_USER_AGENT'];
-	// $referer = '';
-	// if( isset( $_SERVER['HTTP_REFERER'] ) )
-	// {
-	// 	$referer = $_SERVER['HTTP_REFERER'];
-	// 	if (strpos( $referer, site_url() ) !== false)
-	// 	{
-	// 	    $referer = '';
-	// 	}
-	// }
 
 	if( is_front_page() && is_home() )
-		$content = 'homepage';
+		$content_type = 'homepage';
 
 	if( is_single() )
 	{
-		$content = 'post';
+		$content_type = 'post';
 		$name = $wp->query_vars['name'];
 		$post_id = get_the_ID();
 	}
 
 	if( is_page() )
 	{
-		$content = 'page';
+		$content_type = 'page';
 		$name = $wp->query_vars['pagename'];
 		$post_id = get_the_ID();
 	}
 
 	if( is_archive() )
-		$content = 'archive';
+		$content_type = 'archive';
 	
 	if( is_category() )
-		$content = 'category';
+		$content_type = 'category';
 
 	if( is_tax() )
-		$content = 'taxonomy';
+		$content_type = 'taxonomy';
 
 	if( is_author() )
-		$content = 'taxonomy';
+		$content_type = 'taxonomy';
 
 	if( is_search() )
-	{
-		$content = 'search';
-	}
+		$content_type = 'search';
 
 	if( is_404() )
-		$content = '404';
+		$content_type = '404';
 
 	$tracking_code = '<script type="text/javascript">
-var payload = "foo=bar";
-payload+="&guid="+window.location.href;
+var payload="guid="+window.location.href;
 payload+="&title="+document.title;
-payload+="&content=' . $content . '";
+payload+="&content_type=' . $content_type . '";
 payload+="&name=' . $name . '";
 payload+="&post_id=' . $post_id . '";
+payload+="&user_agent="+navigator.userAgent;
 payload+="&search_string="+location.search;
 payload+="&referer="+document.referrer;
+payload+="&window_width="+window.innerWidth;
+payload+="&window_height="+window.innerHeight;
 
 xhttp = new XMLHttpRequest();
 xhttp.open( "POST", "' . $endpoint . '", true );
