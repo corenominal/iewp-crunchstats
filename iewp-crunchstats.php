@@ -21,3 +21,8 @@ register_activation_hook( __FILE__, 'iewp_crunchstats_activate' );
  * The tracking code
  */
 require_once( plugin_dir_path( __FILE__ ) . 'tracking_code/tracking_code.php' );
+
+/**
+ * REST API endpoints
+ */
+require_once( plugin_dir_path( __FILE__ ) . 'endpoints/endpoints.php' );

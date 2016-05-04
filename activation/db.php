@@ -14,6 +14,7 @@ function iewp_crunchstats_create_tables()
 				  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 				  `date` int(11) NOT NULL,
 				  `ip` varchar(50) NOT NULL DEFAULT '',
+				  `new_session` tinyint(1) NOT NULL,
 				  `user_agent` varchar(512) NOT NULL DEFAULT '',
 				  `post_id` bigint(20) NOT NULL,
 				  `content_type` varchar(20) NOT NULL DEFAULT '',
@@ -24,8 +25,11 @@ function iewp_crunchstats_create_tables()
 				  `title` varchar(255) NOT NULL DEFAULT '',
 				  `window_width` int(6) NOT NULL,
 				  `window_height` int(6) NOT NULL,
-				  PRIMARY KEY (`id`)
-				) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+				  PRIMARY KEY (`id`),
+				  KEY `date` (`date`),
+				  KEY `ip` (`ip`),
+				  KEY `new_session` (`new_session`)
+				) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;";
 
 		$query = $wpdb->query( $sql );
 	}

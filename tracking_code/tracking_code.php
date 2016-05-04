@@ -6,13 +6,12 @@ function iewp_crunchstats_tracking_code()
 {
 	global $wp;
 
-	$endpoint = site_url('/wp-json/corenominal/test');
+	$endpoint = site_url('/wp-json/iewp_crunchstats/track');
 
 	// Set some default values
 	$content_type = 'other';
 	$name = '';
 	$post_id = -1;
-	//$ip = $_SERVER['REMOTE_ADDR'];
 
 	if( is_front_page() && is_home() )
 		$content_type = 'homepage';
