@@ -4,9 +4,11 @@
  */
 function iewp_crunchstats_tracking_code()
 {
-	global $wp;
+	
+	if( get_option( 'iewp_crunchstats_enable' ) == 'disabled' )
+		return;
 
-	$endpoint = site_url('/wp-json/iewp_crunchstats/track');
+	global $wp;
 
 	// Set some default values
 	$content_type = 'other';
@@ -48,23 +50,7 @@ function iewp_crunchstats_tracking_code()
 	if( is_404() )
 		$content_type = '404';
 
-	$tracking_code = '<script type="text/javascript">
-var payload="guid="+window.location.href;
-payload+="&title="+document.title;
-payload+="&content_type=' . $content_type . '";
-payload+="&name=' . $name . '";
-payload+="&post_id=' . $post_id . '";
-payload+="&user_agent="+navigator.userAgent;
-payload+="&search_string="+location.search;
-payload+="&referer="+document.referrer;
-payload+="&window_width="+window.innerWidth;
-payload+="&window_height="+window.innerHeight;
-
-xhttp = new XMLHttpRequest();
-xhttp.open( "POST", "' . $endpoint . '", true );
-xhttp.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
-xhttp.send( payload );
-</script>';
+	require_once( plugin_dir_path( __FILE__ ) . 'tracking_code_inc.php' );
 
 	echo str_replace( array("\r", "\n"), '', $tracking_code );
 }

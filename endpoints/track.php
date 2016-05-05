@@ -4,6 +4,9 @@
  */
 function iewp_crunchstats_endpoint_track( $request_data )
 {	
+	if( get_option( 'iewp_crunchstats_track_logged_in' ) == 'false' )
+		return array( 'Notice' => 'tracking disabled for logged in users.' );
+
 	global $wpdb;
 
 	$data = $request_data->get_params();
