@@ -51,3 +51,8 @@ add_filter( 'plugin_action_links', 'iewp_crunchstats_action_links', 10, 5 );
  * Settings Page
  */
 require_once( plugin_dir_path( __FILE__ ) . 'admin/admin.php' );
+
+/**
+ * Dashboard Widget
+ */
+require_once( plugin_dir_path( __FILE__ ) . 'dashboard/dashboard.php' );
