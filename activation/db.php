@@ -16,6 +16,7 @@ function iewp_crunchstats_create_tables()
 				  `ip` varchar(50) NOT NULL DEFAULT '',
 				  `new_session` tinyint(1) NOT NULL,
 				  `user_agent` varchar(512) NOT NULL DEFAULT '',
+				  `is_bot` tinyint(1) NOT NULL,
 				  `post_id` bigint(20) NOT NULL,
 				  `content_type` varchar(20) NOT NULL DEFAULT '',
 				  `name` varchar(255) NOT NULL DEFAULT '',
@@ -28,7 +29,8 @@ function iewp_crunchstats_create_tables()
 				  PRIMARY KEY (`id`),
 				  KEY `date` (`date`),
 				  KEY `ip` (`ip`),
-				  KEY `new_session` (`new_session`)
+				  KEY `new_session` (`new_session`),
+				  KEY `is_bot` (`is_bot`)
 				) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;";
 
 		$query = $wpdb->query( $sql );
