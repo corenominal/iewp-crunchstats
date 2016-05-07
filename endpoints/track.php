@@ -24,9 +24,16 @@ function iewp_crunchstats_endpoint_track( $request_data )
 		$data['new_session'] = 1;
 		setcookie( 'iewp_crunchstats_session', 'foo', 0, "/" );
 	}
+
+	// Detect bot - basic detection only
+	$data['is_bot'] = 0;
+	if ( preg_match('/bot|crawl|slurp|spider/i', $data['user_agent'] ) )
+	{
+		$data['is_bot'] = 1;
+	}
 	
 	// Sanity checks
-	$keys = array( 'guid','title','content_type','name','post_id','user_agent','search_string','referer','window_width','window_height','date','ip', 'new_session' );
+	$keys = array( 'guid','title','content_type','name','post_id','user_agent','search_string','referer','window_width','window_height','date','ip','new_session','is_bot' );
 	
 	foreach ($keys as $key)
 	{
@@ -41,7 +48,7 @@ function iewp_crunchstats_endpoint_track( $request_data )
 	}
 
 	// Insert the record
-	$wpdb->insert( 'iewp_crunchstats_log', $data, array( '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%d', '%d', '%d', '%s') );
+	$wpdb->insert( 'iewp_crunchstats_log', $data, array( '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%d', '%d', '%d', '%s', '%d') );
 
 	return array( 0 );
 }
