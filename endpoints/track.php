@@ -47,6 +47,9 @@ function iewp_crunchstats_endpoint_track( $request_data )
 			return array( 'error' => 'Tracking failed, invalid keys.' );
 	}
 
+	if( strpos( $data['guid'], site_url() ) === false )
+		return array( 'Notice' => 'invalid GUID.' );
+
 	// Insert the record
 	$wpdb->insert( 'iewp_crunchstats_log', $data, array( '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%d', '%d', '%d', '%s', '%d') );
 
