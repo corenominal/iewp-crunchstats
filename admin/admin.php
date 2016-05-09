@@ -76,11 +76,13 @@ function iewp_crunchstats_register()
 {
 	register_setting( 'iewp_crunchstats_group', 'iewp_crunchstats_enable');
 	register_setting( 'iewp_crunchstats_group', 'iewp_crunchstats_track_logged_in');
+	register_setting( 'iewp_crunchstats_group', 'iewp_crunchstats_record_ip_addresses');
 	
 	add_settings_section( 'iewp-crunchstats-options', '', 'iewp_crunchstats_options', 'iewp_crunchstats_options' );
 	
 	add_settings_field( 'iewp-crunchstats-enable', 'Tracking Enabled', 'iewp_crunchstats_enable', 'iewp_crunchstats_options', 'iewp-crunchstats-options' );
 	add_settings_field( 'iewp-crunchstats-tack-logged-in', 'Track WP Users', 'iewp_crunchstats_track_logged_in', 'iewp_crunchstats_options', 'iewp-crunchstats-options' );
+	add_settings_field( 'iewp-crunchstats-record-ip-addresses', 'Log IP Addresses', 'iewp_crunchstats_record_ip_addresses', 'iewp_crunchstats_options', 'iewp-crunchstats-options' );
 }
 
 /**
@@ -96,14 +98,26 @@ function iewp_crunchstats_enable()
 }
 
 /**
- * Enabled.
+ * Track logged in users.
  */
 function iewp_crunchstats_track_logged_in()
 {
 	$id = 'iewp_crunchstats_track_logged_in';
 	$options = array('enabled','disabled');
-	$default = 'true';
+	$default = 'enabled';
 	$description = 'Track users who are logged into WordPress?';
+	echo iewp_crunchstats_options_select( $id, $options, $default, $description);
+}
+
+/**
+ * Record IP addresses?
+ */
+function iewp_crunchstats_record_ip_addresses()
+{
+	$id = 'iewp_crunchstats_record_ip_addresses';
+	$options = array('enabled','disabled');
+	$default = 'disabled';
+	$description = 'Log IP addresses? Disabled by default.';
 	echo iewp_crunchstats_options_select( $id, $options, $default, $description);
 }
 

@@ -17,6 +17,10 @@ function iewp_crunchstats_endpoint_track( $request_data )
 	$data['date'] = time();
 	$data['ip'] = $_SERVER['REMOTE_ADDR'];
 
+	// Are we logging IP addresses? If not, clear it
+	if( get_option( 'iewp_crunchstats_record_ip_addresses' ) == 'disabled' )
+		$data['ip'] = '';
+
 	// Fugly, may look at this again
 	$data['new_session'] = 0; 
 	if( !isset( $_COOKIE['iewp_crunchstats_session'] ) )
