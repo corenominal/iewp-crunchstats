@@ -101,7 +101,7 @@ function iewp_crunchstats_enable()
 function iewp_crunchstats_track_logged_in()
 {
 	$id = 'iewp_crunchstats_track_logged_in';
-	$options = array('true','false');
+	$options = array('enabled','disabled');
 	$default = 'true';
 	$description = 'Track users who are logged into WordPress?';
 	echo iewp_crunchstats_options_select( $id, $options, $default, $description);

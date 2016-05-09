@@ -6,7 +6,7 @@ function iewp_crunchstats_endpoint_track( $request_data )
 {	
 	global $iewp_crunchstats_logged_in;
 
-	if( get_option( 'iewp_crunchstats_track_logged_in' ) == 'false' && $iewp_crunchstats_logged_in == true )
+	if( get_option( 'iewp_crunchstats_track_logged_in' ) == 'disabled' && $iewp_crunchstats_logged_in == true )
 		return array( 'Notice' => 'tracking disabled for logged in users.' );
 
 	global $wpdb;
