@@ -77,12 +77,14 @@ function iewp_crunchstats_register()
 	register_setting( 'iewp_crunchstats_group', 'iewp_crunchstats_enable');
 	register_setting( 'iewp_crunchstats_group', 'iewp_crunchstats_track_logged_in');
 	register_setting( 'iewp_crunchstats_group', 'iewp_crunchstats_record_ip_addresses');
+	register_setting( 'iewp_crunchstats_group', 'iewp_crunchstats_apikey', 'iewp_crunchstats_validate_api_key');
 	
 	add_settings_section( 'iewp-crunchstats-options', '', 'iewp_crunchstats_options', 'iewp_crunchstats_options' );
 	
 	add_settings_field( 'iewp-crunchstats-enable', 'Tracking Enabled', 'iewp_crunchstats_enable', 'iewp_crunchstats_options', 'iewp-crunchstats-options' );
 	add_settings_field( 'iewp-crunchstats-tack-logged-in', 'Track WP Users', 'iewp_crunchstats_track_logged_in', 'iewp_crunchstats_options', 'iewp-crunchstats-options' );
 	add_settings_field( 'iewp-crunchstats-record-ip-addresses', 'Log IP Addresses', 'iewp_crunchstats_record_ip_addresses', 'iewp_crunchstats_options', 'iewp-crunchstats-options' );
+	add_settings_field( 'iewp-crunchstats-apikey', 'API Key', 'iewp_crunchstats_apikey', 'iewp_crunchstats_options', 'iewp-crunchstats-options' );
 }
 
 /**
@@ -121,6 +123,25 @@ function iewp_crunchstats_record_ip_addresses()
 	echo iewp_crunchstats_options_select( $id, $options, $default, $description);
 }
 
+function iewp_crunchstats_apikey()
+{
+    $setting = esc_attr( get_option( 'iewp_crunchstats_apikey' ) );
+	echo '<button id="key-gen" class="button button-secondary key-gen">Generate New API Key</button>';
+	echo '<input id="apikey" type="text" class="regular-text" name="iewp_crunchstats_apikey" value="'.$setting.'" placeholder="API Key">';
+}
+
+function iewp_crunchstats_validate_api_key( $apikey )
+{
+	if( $apikey == '' )
+	{
+		return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
+	}
+	else
+	{
+		return $apikey;
+	}
+}
+
 /**
  * Call back function for settings section. Do nothing.
  */
@@ -152,3 +173,20 @@ function iewp_crunchstats_options_select( $id, $options, $default, $description 
     }
     return $html;
 }
+
+/**
+ * Enqueue additional JavaScript
+ */
+function iewp_crunchstats_apikey_enqueue_scripts( $hook )
+{
+	if( 'settings_page_options-iewp-crunchstats' != $hook )
+	{
+		return;
+	}
+
+	wp_register_script( 'iewp_crunchstats_apikey_js', plugin_dir_url( __FILE__ ) . 'js/iewp_crunchstats_apikey.js', array('jquery'), '0.0.1', true );
+	wp_enqueue_script( 'iewp_crunchstats_apikey_js' );
+
+	wp_enqueue_media();
+}
+add_action( 'admin_enqueue_scripts', 'iewp_crunchstats_apikey_enqueue_scripts' );
