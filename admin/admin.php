@@ -58,7 +58,7 @@ function iewp_crunchstats_callback()
 						</th>
 						<td>
 							<?php require_once( plugin_dir_path( __FILE__ ) . '../tracking_code/tracking_code_inc.php' ); ?>
-							<textarea rows="14" class="widefat" name="iewp_crunchstats_manual_tracking_code" readonly><?php echo $tracking_code ?></textarea>
+							<textarea rows="14" class="widefat" name="iewp_crunchstats_manual_tracking_code" readonly><?php echo "<!-- WP CrunchStats Tracking Stacks -->\n".$tracking_code ?></textarea>
 						</td>
 					</tr>
 				</tbody>
