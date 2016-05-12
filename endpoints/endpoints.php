@@ -25,10 +25,16 @@ function iewp_crunchstats_register_endpoints()
         'methods' => 'POST',
         'callback' => 'iewp_crunchstats_endpoint_track',
     ));
+    // Endpoint:/wp-json/iewp_crunchstats/stats
+    register_rest_route( 'iewp_crunchstats', '/stats', array(
+        'methods' => 'GET',
+        'callback' => 'iewp_crunchstats_endpoint_stats',
+    ));
 }
 add_action( 'rest_api_init', 'iewp_crunchstats_register_endpoints' );
 
-/**
- * Endpoint:/wp-json/iewp_crunchstats/track
- */
+// Endpoint:/wp-json/iewp_crunchstats/track
 require_once( plugin_dir_path( __FILE__ ) . 'track.php' );
+
+// Endpoint:/wp-json/iewp_crunchstats/stats
+require_once( plugin_dir_path( __FILE__ ) . 'stats.php' );
