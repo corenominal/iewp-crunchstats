@@ -60,7 +60,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 
 		// Recent 404 errors
 		case 'recent-404-errors':
-			$sql = "SELECT FROM_UNIXTIME(`date`,'%Y-%m-%d %H.%i.%s') AS `date`,`guid`
+			$sql = "SELECT FROM_UNIXTIME(`date`,'%Y-%m-%d %H:%i:%s') AS `date`,`guid`
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0 AND `content_type` = '404'
 					  ORDER BY date DESC
@@ -119,7 +119,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 
 		// Most recent referers
 		case 'referers-recent':
-			$sql = "SELECT FROM_UNIXTIME(`date`,'%Y-%m-%d %H.%i.%s') AS `dateh`,`referer`,`title`,`guid`
+			$sql = "SELECT FROM_UNIXTIME(`date`,'%Y-%m-%d %H:%i:%s') AS `date`,`referer`,`title`,`guid`
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0 AND `referer` != '' AND `referer` NOT LIKE '%" . site_url() . "%'
 					  ORDER BY date DESC
