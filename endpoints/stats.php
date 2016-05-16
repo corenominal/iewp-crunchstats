@@ -57,6 +57,42 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
 			$data['num_rows'] = $wpdb->num_rows;
 			break;
+
+		// Popular content
+		case 'popular-content-all':
+			$sql = "SELECT `title`,`name`, COUNT(*) AS `total`, `guid`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `name` != ''
+					  GROUP BY `guid`
+					  ORDER BY total DESC
+					  LIMIT 20";
+			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			$data['num_rows'] = $wpdb->num_rows;
+			break;
+
+		// Popular posts
+		case 'popular-content-posts':
+			$sql = "SELECT `title`,`name`, COUNT(*) AS `total`, `guid`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `name` != '' AND `content_type` = 'post'
+					  GROUP BY `guid`
+					  ORDER BY total DESC
+					  LIMIT 20";
+			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			$data['num_rows'] = $wpdb->num_rows;
+			break;
+
+		// Popular pages
+		case 'popular-content-pages':
+			$sql = "SELECT `title`,`name`, COUNT(*) AS `total`, `guid`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `name` != '' AND `content_type` = 'page'
+					  GROUP BY `guid`
+					  ORDER BY total DESC
+					  LIMIT 20";
+			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			$data['num_rows'] = $wpdb->num_rows;
+			break;
 		
 		default:
 			return array( 'Error' => 'Unknown report type. Please specify a valid report type' );
