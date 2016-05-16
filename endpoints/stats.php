@@ -33,7 +33,6 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  GROUP BY `hour`
 					  ORDER BY date ASC";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
-			$data['num_rows'] = $wpdb->num_rows;
 			break;
 
 		// Today's hits
@@ -42,7 +41,6 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0 AND FROM_UNIXTIME(`date`,'%Y-%m-%d') = '" . date( 'Y-m-d' ) . "'";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
-			$data['num_rows'] = $wpdb->num_rows;
 			break;
 
 		// Today's new sessions
@@ -51,7 +49,6 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0 AND `new_session` = 1 AND FROM_UNIXTIME(`date`,'%Y-%m-%d') = '" . date( 'Y-m-d' ) . "'";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
-			$data['num_rows'] = $wpdb->num_rows;
 			break;
 
 		// Hits for the last 7 days
@@ -62,7 +59,6 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  GROUP BY `day`
 					  ORDER BY date DESC";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
-			$data['num_rows'] = $wpdb->num_rows;
 			break;
 
 		// News sessions for the last 7 days
@@ -73,7 +69,6 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  GROUP BY `day`
 					  ORDER BY date DESC";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
-			$data['num_rows'] = $wpdb->num_rows;
 			break;
 
 		// Recently Viewed Content
@@ -84,7 +79,6 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  ORDER BY date DESC
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
-			$data['num_rows'] = $wpdb->num_rows;
 			break;
 
 		// Recent bot activity
@@ -95,7 +89,6 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  ORDER BY date DESC
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
-			$data['num_rows'] = $wpdb->num_rows;
 			break;
 
 		// Recent 404 errors
@@ -106,7 +99,6 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  ORDER BY date DESC
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
-			$data['num_rows'] = $wpdb->num_rows;
 			break;
 
 		// Popular content
@@ -118,7 +110,6 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  ORDER BY total DESC
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
-			$data['num_rows'] = $wpdb->num_rows;
 			break;
 
 		// Popular posts
@@ -130,7 +121,6 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  ORDER BY total DESC
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
-			$data['num_rows'] = $wpdb->num_rows;
 			break;
 
 		// Popular pages
@@ -142,7 +132,6 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  ORDER BY total DESC
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
-			$data['num_rows'] = $wpdb->num_rows;
 			break;
 
 		// Most common referers
@@ -154,7 +143,6 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  ORDER BY total DESC
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
-			$data['num_rows'] = $wpdb->num_rows;
 			break;
 
 		// Most recent referers
@@ -165,7 +153,6 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  ORDER BY date DESC
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
-			$data['num_rows'] = $wpdb->num_rows;
 			break;
 
 		// Most common searches
@@ -176,7 +163,6 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  GROUP BY `query`
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
-			$data['num_rows'] = $wpdb->num_rows;
 			break;
 
 		// Most recent searches
@@ -187,7 +173,6 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  ORDER BY date DESC
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
-			$data['num_rows'] = $wpdb->num_rows;
 			break;
 		
 		default:
@@ -197,6 +182,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 
 	// Remove API key and return report
 	unset( $data['apikey'] );
+	$data['num_rows'] = $wpdb->num_rows;
 	return $data;
 
 }
