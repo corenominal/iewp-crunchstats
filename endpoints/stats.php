@@ -58,6 +58,17 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 			$data['num_rows'] = $wpdb->num_rows;
 			break;
 
+		// Recent 404 errors
+		case 'recent-404-errors':
+			$sql = "SELECT FROM_UNIXTIME(`date`,'%Y-%m-%d %H.%i.%s') AS `date`,`guid`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `content_type` = '404'
+					  ORDER BY date DESC
+					  LIMIT 20";
+			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			$data['num_rows'] = $wpdb->num_rows;
+			break;
+
 		// Popular content
 		case 'popular-content-all':
 			$sql = "SELECT `title`,`name`, COUNT(*) AS `total`, `guid`
