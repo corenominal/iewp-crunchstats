@@ -104,6 +104,29 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
 			$data['num_rows'] = $wpdb->num_rows;
 			break;
+
+		// Most common referers
+		case 'referers-common':
+			$sql = "SELECT `referer`, COUNT(*) AS `total`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `referer` != '' AND `referer` NOT LIKE '%" . site_url() . "%'
+					  GROUP BY `referer`
+					  ORDER BY total DESC
+					  LIMIT 20";
+			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			$data['num_rows'] = $wpdb->num_rows;
+			break;
+
+		// Most recent referers
+		case 'referers-recent':
+			$sql = "SELECT FROM_UNIXTIME(`date`,'%Y-%m-%d %H.%i.%s') AS `dateh`,`referer`,`title`,`guid`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `referer` != '' AND `referer` NOT LIKE '%" . site_url() . "%'
+					  ORDER BY date DESC
+					  LIMIT 20";
+			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			$data['num_rows'] = $wpdb->num_rows;
+			break;
 		
 		default:
 			return array( 'Error' => 'Unknown report type. Please specify a valid report type' );
