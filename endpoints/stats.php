@@ -36,6 +36,28 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 			$data['num_rows'] = $wpdb->num_rows;
 			break;
 
+		// Hits for the last 7 days
+		case 'hits-last-7-days':
+			$sql = "SELECT FROM_UNIXTIME(`date`,'%a') AS `day`, COUNT(*) AS `total`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `date` > " . strtotime('-1 week') . "
+					  GROUP BY `day`
+					  ORDER BY date DESC";
+			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			$data['num_rows'] = $wpdb->num_rows;
+			break;
+
+		// News sessions for the last 7 days
+		case 'sessions-last-7-days':
+			$sql = "SELECT FROM_UNIXTIME(`date`,'%a') AS `day`, COUNT(*) AS `total`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `new_session` = 1 AND `date` > " . strtotime('-1 week') . "
+					  GROUP BY `day`
+					  ORDER BY date DESC";
+			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			$data['num_rows'] = $wpdb->num_rows;
+			break;
+
 		// Recently Viewed Content
 		case 'recently-viewed-content':
 			$sql = "SELECT FROM_UNIXTIME(`date`,'%Y-%m-%d %H:%i:%s') AS `date`,`title`,`guid`
