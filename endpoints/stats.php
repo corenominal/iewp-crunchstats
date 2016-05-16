@@ -127,6 +127,28 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
 			$data['num_rows'] = $wpdb->num_rows;
 			break;
+
+		// Most common searches
+		case 'searches-common':
+			$sql = "SELECT COUNT(*) AS `total`, REPLACE(`search_string`, '?s=', '') AS `query`, `search_string`,`referer`,`title`,`guid`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `search_string` != '' AND `content_type` = 'search'
+					  GROUP BY `query`
+					  LIMIT 20";
+			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			$data['num_rows'] = $wpdb->num_rows;
+			break;
+
+		// Most recent searches
+		case 'searches-recent':
+			$sql = "SELECT FROM_UNIXTIME(`date`,'%Y-%m-%d %H:%i:%s') AS `date`, `content_type`, REPLACE(`search_string`, '?s=', '') AS `query`, `search_string`,`referer`,`title`,`guid`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `search_string` != '' AND `content_type` = 'search'
+					  ORDER BY date DESC
+					  LIMIT 20";
+			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			$data['num_rows'] = $wpdb->num_rows;
+			break;
 		
 		default:
 			return array( 'Error' => 'Unknown report type. Please specify a valid report type' );
