@@ -33,6 +33,10 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  GROUP BY `hour`
 					  ORDER BY date ASC";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+
+			// TODO: This is the default dashboard report, so probably safe
+			// to add maintenance function here to clean-up spammy referers etc.
+
 			break;
 
 		// Today's hits
