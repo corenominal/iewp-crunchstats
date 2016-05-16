@@ -36,6 +36,24 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 			$data['num_rows'] = $wpdb->num_rows;
 			break;
 
+		// Today's hits
+		case 'today-hits':
+			$sql = "SELECT COUNT(*) AS `hits`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND FROM_UNIXTIME(`date`,'%Y-%m-%d') = '" . date( 'Y-m-d' ) . "'";
+			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			$data['num_rows'] = $wpdb->num_rows;
+			break;
+
+		// Today's new sessions
+		case 'today-sessions':
+			$sql = "SELECT COUNT(*) AS `sessions`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `new_session` = 1 AND FROM_UNIXTIME(`date`,'%Y-%m-%d') = '" . date( 'Y-m-d' ) . "'";
+			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			$data['num_rows'] = $wpdb->num_rows;
+			break;
+
 		// Hits for the last 7 days
 		case 'hits-last-7-days':
 			$sql = "SELECT FROM_UNIXTIME(`date`,'%a') AS `day`, COUNT(*) AS `total`
