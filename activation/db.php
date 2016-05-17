@@ -35,6 +35,20 @@ function iewp_crunchstats_create_tables()
 
 		$query = $wpdb->query( $sql );
 	}
+
+	$query = $wpdb->query( 'SHOW TABLES LIKE "iewp_crunchstats_bad_referers"' );
+	if( !$query )
+	{
+		$sql = "CREATE TABLE `iewp_crunchstats_bad_referers` (
+				  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+				  `date` int(11) NOT NULL,
+				  `referer` varchar(255) NOT NULL DEFAULT '',
+				  PRIMARY KEY (`id`)
+				) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+
+		$query = $wpdb->query( $sql );
+	}
+
 }
 
 iewp_crunchstats_create_tables();
