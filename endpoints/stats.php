@@ -3,7 +3,7 @@
  * Return the stats
  */
 function iewp_crunchstats_endpoint_stats( $request_data )
-{	
+{
 	global $wpdb;
 
 	$data = $request_data->get_params();
@@ -33,9 +33,6 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  GROUP BY `hour`
 					  ORDER BY date ASC";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
-
-			// TODO: This is the default dashboard report, so probably safe
-			// to add maintenance function here to clean-up spammy referers etc.
 
 			break;
 
@@ -79,7 +76,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 		case 'recently-viewed-content':
 			$sql = "SELECT FROM_UNIXTIME(`date`,'%Y-%m-%d %H:%i:%s') AS `date`,`title`,`guid`
 					  FROM `iewp_crunchstats_log`
-					  WHERE `is_bot` = 0 
+					  WHERE `is_bot` = 0
 					  ORDER BY date DESC
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
@@ -89,7 +86,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 		case 'recent-bot-activity':
 			$sql = "SELECT FROM_UNIXTIME(`date`,'%Y-%m-%d %H:%i:%s') AS `date`,`title`,`guid`
 					  FROM `iewp_crunchstats_log`
-					  WHERE `is_bot` = 1 
+					  WHERE `is_bot` = 1
 					  ORDER BY date DESC
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
@@ -178,7 +175,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
 			break;
-		
+
 		default:
 			return array( 'Error' => 'Unknown report type. Please specify a valid report type' );
 			break;

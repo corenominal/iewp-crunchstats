@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: IEWP CrunchStats 
+ * Plugin Name: IEWP CrunchStats
  * Plugin URI: https://github.com/corenominal/iewp-crunchstats
  * Description: A crunchy statistics plugin for WordPress.
  * Author: Philip Newborough
@@ -31,7 +31,7 @@ require_once( plugin_dir_path( __FILE__ ) . 'endpoints/endpoints.php' );
 /**
  * Plugin settings link
  */
-function iewp_crunchstats_action_links( $actions, $plugin_file ) 
+function iewp_crunchstats_action_links( $actions, $plugin_file )
 {
 	static $plugin;
 
@@ -40,7 +40,7 @@ function iewp_crunchstats_action_links( $actions, $plugin_file )
 	if ($plugin == $plugin_file)
 	{
 		$settings = array('settings' => '<a href="options-general.php?page=options-iewp-crunchstats">' . __('Settings', 'General') . '</a>');
-	
+
 		$actions = array_merge($settings, $actions);
 	}
 	return $actions;
