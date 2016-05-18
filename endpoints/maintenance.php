@@ -29,6 +29,6 @@ function iewp_crunchstats_endpoint_maintenance( $request_data )
 		}
 	}
 
-	return $data;
+	return array( 'Notice' => 'Maintenance run successfully' );
 
 }

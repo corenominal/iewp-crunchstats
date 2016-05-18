@@ -35,5 +35,10 @@ add_action( 'admin_enqueue_scripts', 'iewp_crunchstats_enqueue_scripts' );
 */
 function iewp_crunchstats_dashboard_widget_function()
 {
-	echo "Stats to appear here.";
+	?>
+	<div id="iewp_crunchstats" class="iewp_crunchstats" data-site-url="<?php echo site_url() ?>" data-apikey="<?php echo get_option( 'iewp_crunchstats_apikey', '' ) ?>">
+
+	</div>
+
+	<?php
 }
