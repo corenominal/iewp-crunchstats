@@ -1,0 +1,40 @@
+.iewp_crunchstats_report_select_container {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.iewp_crunchstats_refresh {
+    color: #72777c;
+}
+
+.iewp_crunchstats_refresh span {
+    padding-top: 4px;
+}
+
+.iewp_crunchstats_report ul li {
+    overflow-x: hidden;
+    display: inline-block;
+    width: 98%;
+    white-space: nowrap;
+}
+
+.iewp_crunchstats_report ul li span {
+    color: #72777c;
+    display: inline-block;
+    margin-right: 5px;
+    min-width: 120px;
+}
+
+.iewp_crunchstats .nodata {
+    color: #72777c;
+}
+
+.iewp_crunchstats_loading {
+    color: #72777c;
+}
+
+.iewp_crunchstats_loading img {
+    vertical-align: middle;
+    margin-right: 6px;
+}

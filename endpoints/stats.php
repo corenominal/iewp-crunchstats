@@ -72,15 +72,46 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
 			break;
 
-		// Recently Viewed Content
+		// Recently Viewed - All
 		case 'recently-viewed-content':
-			$sql = "SELECT FROM_UNIXTIME(`date`,'%Y-%m-%d %H:%i:%s') AS `date`,`title`,`guid`
+			$sql = "SELECT FROM_UNIXTIME(`date`,'%b %D, %l:%i %p') AS `date`,`title`,`guid`
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0
 					  ORDER BY date DESC
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
 			break;
+
+        // Recently Viewed - Posts
+		case 'recently-viewed-posts':
+			$sql = "SELECT FROM_UNIXTIME(`date`,'%b %D, %l:%i %p') AS `date`,`title`,`guid`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `content_type` = 'post'
+					  ORDER BY date DESC
+					  LIMIT 20";
+			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			break;
+
+        // Recently Viewed - Pages
+		case 'recently-viewed-pages':
+			$sql = "SELECT FROM_UNIXTIME(`date`,'%b %D, %l:%i %p') AS `date`,`title`,`guid`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `content_type` = 'page'
+					  ORDER BY date DESC
+					  LIMIT 20";
+			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			break;
+
+        // Recently Viewed - Other
+		case 'recently-viewed-other':
+			$sql = "SELECT FROM_UNIXTIME(`date`,'%b %D, %l:%i %p') AS `date`,`title`,`guid`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `content_type` = 'other'
+					  ORDER BY date DESC
+					  LIMIT 20";
+			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			break;
+
 
 		// Recent bot activity
 		case 'recent-bot-activity':
