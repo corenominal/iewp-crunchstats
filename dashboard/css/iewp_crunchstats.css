@@ -19,11 +19,11 @@
     white-space: nowrap;
 }
 
-.iewp_crunchstats_report ul li span {
+.iewp_crunchstats_report ul li span.timestamp {
     color: #72777c;
     display: inline-block;
     margin-right: 5px;
-    min-width: 120px;
+    min-width: 130px;
 }
 
 .iewp_crunchstats .nodata {

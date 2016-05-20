@@ -87,7 +87,7 @@ jQuery(document).ready(function($)
 		var r = '<ul>';
 		jQuery.each(data, function(i, row)
 		{
-			r += '<li><span>' + row.date + '</span> <a href="' + row.guid + '">' + row.title + '</a></li>';
+			r += '<li><span class="timestamp">' + row.date + '</span> <a href="' + row.guid + '">' + row.title + '</a></li>';
 		});
 		r += '</ul>';
 		$( '#iewp_crunchstats_report' ).html( r );
