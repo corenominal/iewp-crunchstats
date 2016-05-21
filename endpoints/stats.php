@@ -115,10 +115,10 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 
 		// Recent bot activity
 		case 'recent-bot-activity':
-			$sql = "SELECT FROM_UNIXTIME(`date`,'%Y-%m-%d %H:%i:%s') AS `date`,`title`,`guid`
+			$sql = "SELECT `date` AS `timestamp`, FROM_UNIXTIME(`date`,'%Y-%m-%d %H:%i:%s') AS `date`,`title`,`guid`
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 1
-					  ORDER BY date DESC
+					  ORDER BY `timestamp` DESC
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
 			break;
