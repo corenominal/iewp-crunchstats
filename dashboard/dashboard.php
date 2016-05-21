@@ -48,10 +48,10 @@ function iewp_crunchstats_dashboard_widget_function()
                 <option data-report-type="list-default" value="recently-viewed-posts">recently viewed: posts</option>
                 <option data-report-type="list-default" value="recently-viewed-pages">recently viewed: pages</option>
                 <option data-report-type="list-default" value="recently-viewed-other">recently viewed: other</option>
-                <option data-report-type="list-popular" value="popular-content-all">popular content: all</option> <!-- TODO -->
-                <option data-report-type="list-popular" value="popular-content-posts">popular content: posts</option> <!-- TODO -->
-                <option data-report-type="list-popular" value="popular-content-pages">popular content: pages</option> <!-- TODO -->
-                <option data-report-type="list-popular" value="popular-content-other">popular content: other</option> <!-- TODO no report -->
+                <option data-report-type="list-popular" value="popular-content-all">popular content: all</option>
+                <option data-report-type="list-popular" value="popular-content-posts">popular content: posts</option>
+                <option data-report-type="list-popular" value="popular-content-pages">popular content: pages</option>
+                <option data-report-type="list-popular" value="popular-content-other">popular content: other</option>
                 <option value="recent-searches">Recent searches</option> <!-- TODO -->
                 <option data-report-type="list-default" value="recent-bot-activity">Recent bot activity</option>
                 <option value="recent-404-errors">Recent 404 errors</option> <!-- TODO -->

@@ -65,6 +65,10 @@ jQuery(document).ready(function($)
 						iewp_crunchstats_report_type_list_default( data.report );
 						break;
 
+					case 'list-popular':
+						iewp_crunchstats_report_type_list_popular( data.report );
+						break;
+
 					default:
 						$( '#iewp_crunchstats_report' ).html( '<span class="nodata"><span class="dashicons dashicons-warning"></span> Invalid report type.</span>' );
 						break;
@@ -88,6 +92,17 @@ jQuery(document).ready(function($)
 		jQuery.each(data, function(i, row)
 		{
 			r += '<li><span class="timestamp">' + row.date + '</span> <a href="' + row.guid + '">' + row.title + '</a></li>';
+		});
+		r += '</ul>';
+		$( '#iewp_crunchstats_report' ).html( r );
+	}
+
+	function iewp_crunchstats_report_type_list_popular( data )
+	{
+		var r = '<ul>';
+		jQuery.each(data, function(i, row)
+		{
+			r += '<li><span class="count">' + row.total + '</span> <a href="' + row.guid + '">' + row.title + '</a></li>';
 		});
 		r += '</ul>';
 		$( '#iewp_crunchstats_report' ).html( r );
