@@ -52,9 +52,11 @@ function iewp_crunchstats_dashboard_widget_function()
                 <option data-report-type="list-popular" value="popular-content-posts">popular content: posts</option>
                 <option data-report-type="list-popular" value="popular-content-pages">popular content: pages</option>
                 <option data-report-type="list-popular" value="popular-content-other">popular content: other</option>
-                <option value="recent-searches">Recent searches</option> <!-- TODO -->
-                <option data-report-type="list-default" value="recent-bot-activity">Recent bot activity</option>
-                <option value="recent-404-errors">Recent 404 errors</option> <!-- TODO -->
+				<option data-report-type="list-referers" value="referers-recent">recent referers</option>
+				<option data-report-type="list-referers-common" value="referers-common">common referers</option>
+                <option value="recent-searches">recent searches</option> <!-- TODO -->
+                <option data-report-type="list-default" value="recent-bot-activity">recent bot activity</option>
+                <option value="recent-404-errors">recent 404 errors</option> <!-- TODO -->
             </select>
 			<button class="button iewp_crunchstats_refresh" id="iewp_crunchstats_refresh" disabled="disabled"><span class="dashicons dashicons-update"></span></button>
         </div>
