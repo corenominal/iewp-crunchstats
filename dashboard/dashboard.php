@@ -56,7 +56,8 @@ function iewp_crunchstats_dashboard_widget_function()
 				<option data-report-type="list-referers-common" value="referers-common">common referers</option>
                 <option value="recent-searches">recent searches</option> <!-- TODO -->
                 <option data-report-type="list-default" value="recent-bot-activity">recent bot activity</option>
-                <option value="recent-404-errors">recent 404 errors</option> <!-- TODO -->
+                <option data-report-type="list-404s" value="recent-404-errors">recent 404 errors</option>
+				<option data-report-type="list-404s-common" value="common-404-errors">common 404 errors</option>
             </select>
 			<button class="button iewp_crunchstats_refresh" id="iewp_crunchstats_refresh" disabled="disabled"><span class="dashicons dashicons-update"></span></button>
         </div>

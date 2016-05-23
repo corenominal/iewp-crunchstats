@@ -74,7 +74,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 
 		// Recently Viewed - All
 		case 'recently-viewed-content':
-			$sql = "SELECT `date` AS `timestamp`, FROM_UNIXTIME(`date`,'%b %I, %H:%i %p') AS `date`,`title`,`guid`
+			$sql = "SELECT `date` AS `timestamp`, FROM_UNIXTIME(`date`,'%b %d, %H:%i %p') AS `date`,`title`,`guid`
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0
 					  ORDER BY `timestamp` DESC
@@ -84,7 +84,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 
         // Recently Viewed - Posts
 		case 'recently-viewed-posts':
-			$sql = "SELECT `date` AS `timestamp`, FROM_UNIXTIME(`date`,'%b %I, %H:%i %p') AS `date`,`title`,`guid`
+			$sql = "SELECT `date` AS `timestamp`, FROM_UNIXTIME(`date`,'%b %d, %H:%i %p') AS `date`,`title`,`guid`
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0 AND `content_type` = 'post'
 					  ORDER BY `timestamp` DESC
@@ -94,7 +94,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 
         // Recently Viewed - Pages
 		case 'recently-viewed-pages':
-			$sql = "SELECT `date` AS `timestamp`, FROM_UNIXTIME(`date`,'%b %I, %H:%i %p') AS `date`,`title`,`guid`
+			$sql = "SELECT `date` AS `timestamp`, FROM_UNIXTIME(`date`,'%b %d, %H:%i %p') AS `date`,`title`,`guid`
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0 AND `content_type` = 'page'
 					  ORDER BY `timestamp` DESC
@@ -104,7 +104,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 
         // Recently Viewed - Other
 		case 'recently-viewed-other':
-			$sql = "SELECT `date` AS `timestamp`, FROM_UNIXTIME(`date`,'%b %I, %H:%i %p') AS `date`,`title`,`guid`
+			$sql = "SELECT `date` AS `timestamp`, FROM_UNIXTIME(`date`,'%b %d, %H:%i %p') AS `date`,`title`,`guid`
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0 AND `content_type` = 'other'
 					  ORDER BY `timestamp` DESC
@@ -125,10 +125,21 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 
 		// Recent 404 errors
 		case 'recent-404-errors':
-			$sql = "SELECT FROM_UNIXTIME(`date`,'%Y-%m-%d %H:%i:%s') AS `date`,`guid`
+			$sql = "SELECT `date` AS `timestamp`, FROM_UNIXTIME(`date`,'%b %d, %H:%i %p') AS `date`,`guid`
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0 AND `content_type` = '404'
-					  ORDER BY date DESC
+					  ORDER BY `date` DESC
+					  LIMIT 20";
+			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			break;
+
+		// Recent 404 errors
+		case 'common-404-errors':
+			$sql = "SELECT COUNT(*) AS `total`, `guid`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `content_type` = '404'
+					  GROUP BY `guid`
+					  ORDER BY `total` DESC
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
 			break;
@@ -179,7 +190,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 
 		// Most recent referers
 		case 'referers-recent':
-			$sql = "SELECT `date` AS `timestamp`, FROM_UNIXTIME(`date`,'%b %I, %H:%i %p') AS `date`,`referer`,`title`,`guid`
+			$sql = "SELECT `date` AS `timestamp`, FROM_UNIXTIME(`date`,'%b %d, %H:%i %p') AS `date`,`referer`,`title`,`guid`
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0 AND `referer` != '' AND `referer` NOT LIKE '%" . site_url() . "%'
 					  ORDER BY `timestamp` DESC
