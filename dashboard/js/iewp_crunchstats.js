@@ -130,8 +130,7 @@ jQuery(document).ready(function($)
 		jQuery.each(data, function(i, row)
 		{
 			// TODO options for marking referer spam
-			// TODO anonymous links to referers
-			r += '<li><span class="timestamp">' + row.date + '</span> <a href="' + row.referer + '">' + row.referer + '</a></li>';
+			r += '<li><span class="timestamp">' + row.date + '</span> <a target="_blank" href="http://derefer.unbubble.eu?u=' + row.referer + '">' + row.referer + '</a></li>';
 		});
 		r += '</ul>';
 		$( '#iewp_crunchstats_report' ).html( r );
@@ -143,8 +142,7 @@ jQuery(document).ready(function($)
 		jQuery.each(data, function(i, row)
 		{
 			// TODO options for marking referer spam
-			// TODO anonymous links to referers
-			r += '<li><span class="count">' + row.total + '</span> <a href="' + row.referer + '">' + row.referer + '</a></li>';
+			r += '<li><span class="count">' + row.total + '</span> <a target="_blank" href="http://derefer.unbubble.eu?u=' + row.referer + '">' + row.referer + '</a></li>';
 		});
 		r += '</ul>';
 		$( '#iewp_crunchstats_report' ).html( r );
