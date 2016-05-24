@@ -204,6 +204,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0 AND `search_string` != '' AND `content_type` = 'search'
 					  GROUP BY `query`
+					  ORDER BY total DESC
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
 			break;
