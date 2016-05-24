@@ -17,6 +17,13 @@
     display: inline-block;
     width: 98%;
     white-space: nowrap;
+    border-bottom: 1px solid #eee;
+    padding: 0px 0px 4px 0px;
+    margin:0;
+}
+
+.iewp_crunchstats_report ul li:last-child {
+    border-bottom: none;
 }
 
 .iewp_crunchstats_report ul li span.timestamp,
