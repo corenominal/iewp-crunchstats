@@ -77,6 +77,14 @@ jQuery(document).ready(function($)
 						iewp_crunchstats_report_type_list_referers_common( data.report );
 						break;
 
+					case 'list-searches':
+						iewp_crunchstats_report_type_list_searches( data.report );
+						break;
+
+					case 'list-searches-common':
+						iewp_crunchstats_report_type_list_searches_common( data.report );
+						break;
+
 					case 'list-404s':
 						iewp_crunchstats_report_type_list_404s( data.report );
 						break;
@@ -107,7 +115,7 @@ jQuery(document).ready(function($)
 		var r = '<ul>';
 		jQuery.each(data, function(i, row)
 		{
-			r += '<li><span class="timestamp">' + row.date + '</span> <a href="' + row.guid + '">' + row.title + '</a></li>';
+			r += '<li><span class="timestamp">' + row.date + '</span> <a target="_blank" href="' + row.guid + '">' + row.title + '</a></li>';
 		});
 		r += '</ul>';
 		$( '#iewp_crunchstats_report' ).html( r );
@@ -118,7 +126,7 @@ jQuery(document).ready(function($)
 		var r = '<ul>';
 		jQuery.each(data, function(i, row)
 		{
-			r += '<li><span class="count">' + row.total + '</span> <a href="' + row.guid + '">' + row.title + '</a></li>';
+			r += '<li><span class="count">' + row.total + '</span> <a target="_blank" href="' + row.guid + '">' + row.title + '</a></li>';
 		});
 		r += '</ul>';
 		$( '#iewp_crunchstats_report' ).html( r );
@@ -148,12 +156,35 @@ jQuery(document).ready(function($)
 		$( '#iewp_crunchstats_report' ).html( r );
 	}
 
+	function iewp_crunchstats_report_type_list_searches( data )
+	{
+		var r = '<ul>';
+		jQuery.each(data, function(i, row)
+		{
+			r += '<li><span class="timestamp">' + row.date + '</span> <a target="_blank" href="' + row.guid + '">' + row.query + '</a></li>';
+		});
+		r += '</ul>';
+		$( '#iewp_crunchstats_report' ).html( r );
+	}
+
+	function iewp_crunchstats_report_type_list_searches_common( data )
+	{
+		var r = '<ul>';
+		jQuery.each(data, function(i, row)
+		{
+			r += '<li><span class="count">' + row.total + '</span> <a target="_blank" href="' + row.guid + '">' + row.query + '</a></li>';
+		});
+		r += '</ul>';
+		$( '#iewp_crunchstats_report' ).html( r );
+	}
+
+
 	function iewp_crunchstats_report_type_list_404s_common( data )
 	{
 		var r = '<ul>';
 		jQuery.each(data, function(i, row)
 		{
-			r += '<li><span class="count">' + row.total + '</span> <a href="' + row.guid + '">' + row.guid + '</a></li>';
+			r += '<li><span class="count">' + row.total + '</span> <a target="_blank" href="' + row.guid + '">' + row.guid + '</a></li>';
 		});
 		r += '</ul>';
 		$( '#iewp_crunchstats_report' ).html( r );
@@ -164,9 +195,7 @@ jQuery(document).ready(function($)
 		var r = '<ul>';
 		jQuery.each(data, function(i, row)
 		{
-			// TODO options for marking referer spam
-			// TODO anonymous links to referers
-			r += '<li><span class="timestamp">' + row.date + '</span> <a href="' + row.guid + '">' + row.guid + '</a></li>';
+			r += '<li><span class="timestamp">' + row.date + '</span> <a target="_blank" href="' + row.guid + '">' + row.guid + '</a></li>';
 		});
 		r += '</ul>';
 		$( '#iewp_crunchstats_report' ).html( r );
