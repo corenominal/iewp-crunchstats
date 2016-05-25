@@ -94,7 +94,7 @@ jQuery(document).ready(function($)
 						break;
 
 					case 'graph-today-hour-by-hour':
-						iewp_crunchstats_report_graph_today_hour_by_hour( data.report );
+						iewp_crunchstats_report_graph_today_hour_by_hour( data.report1, data.report2 );
 						break;
 
 					default:
@@ -205,10 +205,11 @@ jQuery(document).ready(function($)
 		$( '#iewp_crunchstats_report' ).html( r );
 	}
 
-	function iewp_crunchstats_report_graph_today_hour_by_hour( data )
+	function iewp_crunchstats_report_graph_today_hour_by_hour( data1, data2 )
 	{
+		var header = '<h2>Hits today: ' + data1[0].hits + '</h2>';
 		var w = $( '#iewp_crunchstats_report' ).width();
-		$( '#iewp_crunchstats_report' ).html( '<canvas id="iewpChart" width="' + w + '" height="400"></canvas>' );
+		$( '#iewp_crunchstats_report' ).html( header + '<canvas id="iewpChart" width="' + w + '" height="400"></canvas>' );
 		var ctx = $( '#iewpChart' );
 
 		// Create the labels and data array
@@ -221,9 +222,9 @@ jQuery(document).ready(function($)
 			{
 				hour = '0' + hour;
 			}
-			if( data[i] !== undefined && data[i].hour !== undefined )
+			if( data2[i] !== undefined && data2[i].hour !== undefined )
 			{
-				hits.push( data[i].total );
+				hits.push( data2[i].total );
 			}
 			else
 			{
