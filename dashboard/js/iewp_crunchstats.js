@@ -15,7 +15,7 @@ jQuery(document).ready(function($)
 	})
 	.done(function() {
 		// Get the default report
-		iewp_crunchstats_get_report( 'recently-viewed-content', 'list-default' );
+		iewp_crunchstats_get_report( 'today-hour-by-hour', 'graph-today-hour-by-hour' );
 	})
 	.fail(function() {
 		console.log('Error running iewp_crunchstats maintenance AJAX call');
@@ -91,6 +91,10 @@ jQuery(document).ready(function($)
 
 					case 'list-404s-common':
 						iewp_crunchstats_report_type_list_404s_common( data.report );
+						break;
+
+					case 'graph-today-hour-by-hour':
+						iewp_crunchstats_report_graph_today_hour_by_hour( data.report );
 						break;
 
 					default:
@@ -199,6 +203,56 @@ jQuery(document).ready(function($)
 		});
 		r += '</ul>';
 		$( '#iewp_crunchstats_report' ).html( r );
+	}
+
+	function iewp_crunchstats_report_graph_today_hour_by_hour( data )
+	{
+		var w = $( '#iewp_crunchstats_report' ).width();
+		$( '#iewp_crunchstats_report' ).html( '<canvas id="iewpChart" width="' + w + '" height="400"></canvas>' );
+		var ctx = $( '#iewpChart' );
+
+		// Create the labels and data array
+		var hours = [];
+		var hits = [];
+		for (var i = 0; i < 24; i++)
+		{
+			var hour = i.toString();
+			if( hour.length < 2 )
+			{
+				hour = '0' + hour;
+			}
+			if( data[i] !== undefined && data[i].hour !== undefined )
+			{
+				hits.push( data[i].total );
+			}
+			else
+			{
+				hits.push( 0 );
+			}
+			hours.push( hour );
+		}
+
+		var chartData =
+		{
+		    labels: hours,
+		    datasets: [
+		        {
+		            label: 'Hits Today: Hour by Hour',
+		            backgroundColor: "rgba(0,115,170,0.2)",
+		            borderColor: "rgba(0,115,170,1)",
+		            borderWidth: 1,
+		            hoverBackgroundColor: "rgba(0,115,170,0.4)",
+		            hoverBorderColor: "rgba(0,115,170,1)",
+		            data: hits,
+		        }
+		    ]
+		};
+
+		var iewpBarChart = new Chart(ctx,
+		{
+		    type: 'bar',
+		    data: chartData
+		});
 	}
 
 

@@ -27,7 +27,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 	{
 		// A hour by hour breakdown of today's hits
 		case 'today-hour-by-hour':
-			$sql = "SELECT FROM_UNIXTIME(`date`,'%k') AS `hour`, COUNT(*) AS `total`
+			$sql = "SELECT FROM_UNIXTIME(`date`,'%H') AS `hour`, COUNT(*) AS `total`
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0 AND FROM_UNIXTIME(`date`,'%Y-%m-%d') = '" . date( 'Y-m-d' ) . "'
 					  GROUP BY `hour`
