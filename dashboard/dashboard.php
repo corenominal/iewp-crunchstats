@@ -26,7 +26,10 @@ function iewp_crunchstats_enqueue_scripts( $hook )
     wp_register_style( 'iewp_crunchstats_css', plugin_dir_url( __FILE__ ) . 'css/iewp_crunchstats.css', array(), '0.0.1', 'all' );
 	wp_enqueue_style( 'iewp_crunchstats_css' );
 
-    wp_register_script( 'iewp_crunchstats_js', plugin_dir_url( __FILE__ ) . 'js/iewp_crunchstats.js', array('jquery'), '0.0.1', true );
+	wp_register_script( 'iewp_charts_js', plugin_dir_url( __FILE__ ) . 'js/vendor/Chart.bundle.js', array('jquery'), '0.0.1', true );
+	wp_enqueue_script( 'iewp_charts_js' );
+
+	wp_register_script( 'iewp_crunchstats_js', plugin_dir_url( __FILE__ ) . 'js/iewp_crunchstats.js', array('jquery'), '0.0.1', true );
 	wp_enqueue_script( 'iewp_crunchstats_js' );
 
 	wp_enqueue_media();
