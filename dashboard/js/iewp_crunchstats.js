@@ -15,7 +15,7 @@ jQuery(document).ready(function($)
 	})
 	.done(function() {
 		// Get the default report
-		iewp_crunchstats_get_report( 'today-hour-by-hour', 'graph-today-hour-by-hour' );
+		iewp_crunchstats_get_report( 'today-hour-by-hour', 'graph-day-hour-by-hour' );
 	})
 	.fail(function() {
 		console.log('Error running iewp_crunchstats maintenance AJAX call');
@@ -93,8 +93,8 @@ jQuery(document).ready(function($)
 						iewp_crunchstats_report_type_list_404s_common( data.report );
 						break;
 
-					case 'graph-today-hour-by-hour':
-						iewp_crunchstats_report_graph_today_hour_by_hour( data.report1, data.report2 );
+					case 'graph-day-hour-by-hour':
+						iewp_crunchstats_report_graph_day_hour_by_hour( data.label, data.report1, data.report2 );
 						break;
 
 					case 'graph-last-7-days':
@@ -209,7 +209,7 @@ jQuery(document).ready(function($)
 		$( '#iewp_crunchstats_report' ).html( r );
 	}
 
-	function iewp_crunchstats_report_graph_today_hour_by_hour( data1, data2 )
+	function iewp_crunchstats_report_graph_day_hour_by_hour( label, data1, data2 )
 	{
 		var header = '<h2>Hits today: ' + data1[0].hits + '</h2>';
 		var w = $( '#iewp_crunchstats_report' ).width();
@@ -250,7 +250,7 @@ jQuery(document).ready(function($)
 		    labels: hours,
 		    datasets: [
 		        {
-		            label: 'Hits Today: Hour by Hour',
+		            label: label,
 		            backgroundColor: "rgba(0,115,170,0.2)",
 		            borderColor: "rgba(0,115,170,1)",
 		            borderWidth: 1,
