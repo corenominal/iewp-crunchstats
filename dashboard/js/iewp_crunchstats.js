@@ -211,7 +211,7 @@ jQuery(document).ready(function($)
 
 	function iewp_crunchstats_report_graph_day_hour_by_hour( label, data1, data2 )
 	{
-		var header = '<h2>Hits today: ' + data1[0].hits + '</h2>';
+		var header = '<h2>Total hits: ' + data1[0].hits + '</h2>';
 		var w = $( '#iewp_crunchstats_report' ).width();
 		$( '#iewp_crunchstats_report' ).html( header + '<canvas id="iewpChart" width="' + w + '" height="400"></canvas>' );
 		var ctx = $( '#iewpChart' );
