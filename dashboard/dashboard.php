@@ -47,7 +47,8 @@ function iewp_crunchstats_dashboard_widget_function()
         <div class="iewp_crunchstats_report_select_container">
             <label class="iewp-sr-only" for="iewp_crunchstats_report_select">Select report:</label>
             <select id="iewp_crunchstats_report_select">
-				<option data-report-type="graph-today-hour-by-hour" value="today-hour-by-hour">Hits: Today</option>
+				<option data-report-type="graph-today-hour-by-hour" value="today-hour-by-hour">Hits: today</option>
+				<option data-report-type="graph-last-7-days" value="hits-last-7-days">Hits: last 7 days</option>
 				<option data-report-type="list-default" value="recently-viewed-content">Recently viewed: all</option>
                 <option data-report-type="list-default" value="recently-viewed-posts">Recently viewed: posts</option>
                 <option data-report-type="list-default" value="recently-viewed-pages">Recently viewed: pages</option>

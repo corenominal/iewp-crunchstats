@@ -59,12 +59,26 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 
 		// Hits for the last 7 days
 		case 'hits-last-7-days':
+			$data['labels'] = array();
+			for ($i=0; $i < 6; $i++)
+			{
+				$day = 6 - $i;
+				$timestamp = strtotime('-' . $day . ' days');
+				$data['labels'][] = date('D', $timestamp);
+			}
+			$data['labels'][] = date('D', time());
+
+			$sql = "SELECT COUNT(*) AS `hits`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `date` > " . strtotime('6 days ago 00:00:00');
+			$data['report1'] = $wpdb->get_results( $sql, ARRAY_A );
+
 			$sql = "SELECT FROM_UNIXTIME(`date`,'%a') AS `day`, COUNT(*) AS `total`
 					  FROM `iewp_crunchstats_log`
-					  WHERE `is_bot` = 0 AND `date` > " . strtotime('-1 week') . "
+					  WHERE `is_bot` = 0 AND `date` > " . strtotime('6 days ago 00:00:00') . "
 					  GROUP BY `day`
 					  ORDER BY date DESC";
-			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			$data['report2'] = $wpdb->get_results( $sql, ARRAY_A );
 			break;
 
 		// News sessions for the last 7 days
