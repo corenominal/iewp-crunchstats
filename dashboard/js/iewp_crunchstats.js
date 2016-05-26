@@ -288,7 +288,6 @@ jQuery(document).ready(function($)
 		var ctx = $( '#iewpChart' );
 
 		// Create the hitsdata array
-		//var hits = [0,0,0,0,0,0,0];
 		var hits = [];
 		for (var i = 0; i < days; i++)
 		{
