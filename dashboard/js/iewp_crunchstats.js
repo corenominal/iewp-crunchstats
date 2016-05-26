@@ -97,8 +97,8 @@ jQuery(document).ready(function($)
 						iewp_crunchstats_report_graph_day_hour_by_hour( data.label, data.report1, data.report2 );
 						break;
 
-					case 'graph-last-7-days':
-						iewp_crunchstats_report_graph_last_7_days( data.labels, data.report1, data.report2 );
+					case 'graph-last-X-days':
+						iewp_crunchstats_report_graph_last_X_days( data.days, data.label ,data.labels, data.report1, data.report2 );
 						break;
 
 					default:
@@ -280,7 +280,7 @@ jQuery(document).ready(function($)
 		});
 	}
 
-	function iewp_crunchstats_report_graph_last_7_days( labels, data1, data2 )
+	function iewp_crunchstats_report_graph_last_X_days( days, label, labels, data1, data2 )
 	{
 		var header = '<h2>Total hits: ' + data1[0].hits + '</h2>';
 		var w = $( '#iewp_crunchstats_report' ).width();
@@ -288,7 +288,13 @@ jQuery(document).ready(function($)
 		var ctx = $( '#iewpChart' );
 
 		// Create the hitsdata array
-		var hits = [0,0,0,0,0,0,0];
+		//var hits = [0,0,0,0,0,0,0];
+		var hits = [];
+		for (var i = 0; i < days; i++)
+		{
+			hits.push( 0 );
+		}
+
 		for (var i = 0; i < labels.length; i++)
 		{
 			for (var j = 0; j < data2.length; j++)
@@ -305,7 +311,7 @@ jQuery(document).ready(function($)
 		    labels: labels,
 		    datasets: [
 		        {
-		            label: 'Hits: last 7 days',
+		            label: label,
 		            backgroundColor: "rgba(0,115,170,0.2)",
 		            borderColor: "rgba(0,115,170,1)",
 		            borderWidth: 1,

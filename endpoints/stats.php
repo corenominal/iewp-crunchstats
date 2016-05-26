@@ -77,6 +77,8 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 
 		// Hits for the last 7 days
 		case 'hits-last-7-days':
+			$data['days'] = 7;
+			$data['label'] = 'Hits: last 7 days';
 			$data['labels'] = array();
 			for ($i=0; $i < 6; $i++)
 			{
@@ -94,6 +96,32 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 			$sql = "SELECT FROM_UNIXTIME(`date`,'%a') AS `day`, COUNT(*) AS `total`
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0 AND `date` > " . strtotime('6 days ago 00:00:00') . "
+					  GROUP BY `day`
+					  ORDER BY date DESC";
+			$data['report2'] = $wpdb->get_results( $sql, ARRAY_A );
+			break;
+
+		// Hits for the last 30 days
+		case 'hits-last-30-days':
+			$data['days'] = 30;
+			$data['label'] = 'Hits: last 30 days';
+			$data['labels'] = array();
+			for ($i=0; $i < 29; $i++)
+			{
+				$day = 29 - $i;
+				$timestamp = strtotime('-' . $day . ' days');
+				$data['labels'][] = date('M d', $timestamp);
+			}
+			$data['labels'][] = date('M d', time());
+
+			$sql = "SELECT COUNT(*) AS `hits`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `date` > " . strtotime('29 days ago 00:00:00');
+			$data['report1'] = $wpdb->get_results( $sql, ARRAY_A );
+
+			$sql = "SELECT FROM_UNIXTIME(`date`,'%b %d') AS `day`, COUNT(*) AS `total`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `date` > " . strtotime('29 days ago 00:00:00') . "
 					  GROUP BY `day`
 					  ORDER BY date DESC";
 			$data['report2'] = $wpdb->get_results( $sql, ARRAY_A );
