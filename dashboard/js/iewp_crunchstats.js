@@ -47,6 +47,14 @@ jQuery(document).ready(function($)
 
     });
 
+	// Referer select
+	$( document ).on( 'click', '.iewp-referer', function( e )
+	{
+			e.preventDefault();
+			var id = $( this ).data( 'id' );
+			$( '#iewp-ref-info-' + id ).toggle();
+	});
+
 	// Get data for report and call report generating function
 	function iewp_crunchstats_get_report( report, report_type)
 	{
@@ -145,11 +153,15 @@ jQuery(document).ready(function($)
 		var r = '<ul>';
 		jQuery.each(data, function(i, row)
 		{
-			// TODO options for marking referer spam
-			r += '<li><span class="timestamp">' + row.date + '</span> <a target="_blank" href="http://derefer.unbubble.eu?u=' + row.referer + '">' + row.referer + '</a></li>';
+			r += '<li id="iewp-ref-' + row.id + '" class="refer-recent"><span class="timestamp">' + row.date + '</span><a class="iewp-referer" data-id="' + row.id + '" href="#">' + row.referer + '</a>';
+			r += '<span id="iewp-ref-info-' + row.id + '" class="iewp-ref-info">';
+			r += '<a target="_blank" href="http://derefer.unbubble.eu?u=' + row.referer + '">view</a> | ';
+			r += '<a data-id="' + row.id + '" href="#">blacklist</a>';
+			r += '</span></li>';
 		});
 		r += '</ul>';
 		$( '#iewp_crunchstats_report' ).html( r );
+		$( '.iewp-ref-info' ).hide();
 	}
 
 	function iewp_crunchstats_report_type_list_referers_common( data )
@@ -157,11 +169,15 @@ jQuery(document).ready(function($)
 		var r = '<ul>';
 		jQuery.each(data, function(i, row)
 		{
-			// TODO options for marking referer spam
-			r += '<li><span class="count">' + row.total + '</span> <a target="_blank" href="http://derefer.unbubble.eu?u=' + row.referer + '">' + row.referer + '</a></li>';
+			r += '<li id="iewp-ref-' + row.id + '" class="refer-common"><span class="count">' + row.total + '</span><a class="iewp-referer" data-id="' + row.id + '" href="#">' + row.referer + '</a>';
+			r += '<span id="iewp-ref-info-' + row.id + '" class="iewp-ref-info">';
+			r += '<a target="_blank" href="http://derefer.unbubble.eu?u=' + row.referer + '">view</a> | ';
+			r += '<a data-id="' + row.id + '" href="#">blacklist</a>';
+			r += '</span></li>';
 		});
 		r += '</ul>';
 		$( '#iewp_crunchstats_report' ).html( r );
+		$( '.iewp-ref-info' ).hide();
 	}
 
 	function iewp_crunchstats_report_type_list_searches( data )

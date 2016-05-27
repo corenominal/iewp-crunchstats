@@ -244,7 +244,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 
 		// Most common referers
 		case 'referers-common':
-			$sql = "SELECT `referer`, COUNT(*) AS `total`
+			$sql = "SELECT `id`,`referer`, COUNT(*) AS `total`
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0 AND `referer` != '' AND `referer` NOT LIKE '%" . site_url() . "%'
 					  GROUP BY `referer`
@@ -255,7 +255,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 
 		// Most recent referers
 		case 'referers-recent':
-			$sql = "SELECT `date` AS `timestamp`, FROM_UNIXTIME(`date`,'%b %d, %H:%i') AS `date`,`referer`,`title`,`guid`
+			$sql = "SELECT `id`,`date` AS `timestamp`, FROM_UNIXTIME(`date`,'%b %d, %H:%i') AS `date`,`referer`,`title`,`guid`
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0 AND `referer` != '' AND `referer` NOT LIKE '%" . site_url() . "%'
 					  ORDER BY `timestamp` DESC

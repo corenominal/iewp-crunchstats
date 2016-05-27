@@ -30,7 +30,7 @@
 .iewp_crunchstats_report ul li span.count  {
     color: #72777c;
     display: inline-block;
-    margin-right: 20px;
+    min-width: 100px
 }
 
 .iewp_crunchstats_report ul li span.count {
@@ -48,6 +48,23 @@
 .iewp_crunchstats_loading img {
     vertical-align: middle;
     margin-right: 6px;
+}
+
+.iewp-ref-info {
+    display: block;
+    margin-top: 6px;
+}
+
+.refer-recent .iewp-ref-info {
+    margin-left: 100px;
+}
+
+.refer-common .iewp-ref-info {
+    margin-left: 60px;
+}
+
+a.iewp-referer {
+    box-shadow: none;
 }
 
 .iewp-sr-only {
