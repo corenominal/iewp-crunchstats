@@ -15,8 +15,7 @@ jQuery(document).ready(function($)
 	})
 	.done(function() {
 		// Get the default report
-		//iewp_crunchstats_get_report( 'today-hour-by-hour', 'graph-day-hour-by-hour' );
-		iewp_crunchstats_get_report( 'referers-common', 'list-referers-common' );
+		iewp_crunchstats_get_report( 'today-hour-by-hour', 'graph-day-hour-by-hour' );
 	})
 	.fail(function() {
 		console.log('Error running iewp_crunchstats maintenance AJAX call');
@@ -80,7 +79,7 @@ jQuery(document).ready(function($)
 			apikey: apikey,
 			action: 'insert'
 		};
-		
+
 		$.ajax({
 			url: endpoint + 'referer_blacklist',
 			type: 'GET',
