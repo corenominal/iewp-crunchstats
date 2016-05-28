@@ -35,6 +35,12 @@ function iewp_crunchstats_register_endpoints()
         'methods' => 'GET',
         'callback' => 'iewp_crunchstats_endpoint_maintenance',
     ));
+
+    // Endpoint:/wp-json/iewp_crunchstats/maintenance
+    register_rest_route( 'iewp_crunchstats', '/referer_blacklist', array(
+        'methods' => 'GET',
+        'callback' => 'iewp_crunchstats_endpoint_referer_blacklist',
+    ));
 }
 add_action( 'rest_api_init', 'iewp_crunchstats_register_endpoints' );
 
@@ -46,3 +52,6 @@ require_once( plugin_dir_path( __FILE__ ) . 'stats.php' );
 
 // Endpoint:/wp-json/iewp_crunchstats/stats
 require_once( plugin_dir_path( __FILE__ ) . 'maintenance.php' );
+
+// Endpoint:/wp-json/iewp_crunchstats/referer_blacklist
+require_once( plugin_dir_path( __FILE__ ) . 'referer_blacklist.php' );

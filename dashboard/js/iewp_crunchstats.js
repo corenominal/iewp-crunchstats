@@ -15,7 +15,8 @@ jQuery(document).ready(function($)
 	})
 	.done(function() {
 		// Get the default report
-		iewp_crunchstats_get_report( 'today-hour-by-hour', 'graph-day-hour-by-hour' );
+		//iewp_crunchstats_get_report( 'today-hour-by-hour', 'graph-day-hour-by-hour' );
+		iewp_crunchstats_get_report( 'referers-common', 'list-referers-common' );
 	})
 	.fail(function() {
 		console.log('Error running iewp_crunchstats maintenance AJAX call');
@@ -50,9 +51,83 @@ jQuery(document).ready(function($)
 	// Referer select
 	$( document ).on( 'click', '.iewp-referer', function( e )
 	{
-			e.preventDefault();
-			var id = $( this ).data( 'id' );
-			$( '#iewp-ref-info-' + id ).toggle();
+		e.preventDefault();
+		var id = $( this ).data( 'id' );
+		$( '#iewp-ref-info-' + id ).toggle();
+	});
+
+	// Referer blacklist
+	$( document ).on( 'click', '.iewp-ref-blacklist', function( e )
+	{
+		e.preventDefault();
+		var id = $( this ).data( 'id' );
+		$( '#iewp-ref-' + id + ' .iewp-refer-body' ).hide();
+		var confirm = '<div id="iewp-confirm-blacklist-' + id + '" class="iewp-blacklist-confirm">Are you sure you want to blacklist this referer?'
+		confirm += '<span class="iewp-blacklist-confirm-options"><a data-id="' + id + '" class="iewp-cancel-blacklist" href="#">cancel</a> | ';
+		confirm +='<a data-id="' + id + '" class="iewp-confirm-blacklist" href="#">confirm</a>';
+		confirm += '</span></div>';
+		$( '#iewp-ref-' + id ).append( confirm );
+	});
+
+	// Referer blacklist - do blacklisting
+	$( document ).on( 'click', '.iewp-confirm-blacklist', function( e )
+	{
+		e.preventDefault();
+		var id = $( this ).data( 'id' );
+		$( '#iewp-ref-' + id ).html( '<span class="iewp-blacklisted"><img src="/wp-includes/images/spinner.gif"> blacklisting referer ...</span>' );
+		var data = {
+			id: id,
+			apikey: apikey,
+			action: 'insert'
+		};
+		
+		$.ajax({
+			url: endpoint + 'referer_blacklist',
+			type: 'GET',
+			dataType: 'json',
+			data: data
+		})
+		.done(function( data ) {
+			// Handle any errors
+			if( data.Error !== undefined )
+			{
+				$( '#iewp-ref-' + id ).html( '<span class="iewp-blacklisted">Error: ' + data.Error + ' :(</span>' );
+				return;
+			}
+			// Perform maintenance and remove item from list
+			$.ajax({
+				url: endpoint + 'maintenance',
+				type: 'GET',
+				dataType: 'json',
+				data: {apikey: apikey}
+			})
+			.done(function() {
+				$( '#iewp-ref-' + id ).addClass( 'notify' );
+				$( '#iewp-ref-' + id ).html( '<span class="iewp-blacklisted">Referer added to blacklist!</span>' );
+				setTimeout(function()
+				{
+					$( '#iewp-ref-' + id ).fadeOut(500, function()
+					{
+						$( this ).remove();
+					});
+				}, 2000);
+			})
+			.fail(function() {
+				console.log('Error running iewp_crunchstats maintenance AJAX call');
+			});
+		})
+		.fail(function() {
+			console.log( 'Failed to insert blacklisted referer' );
+		});
+	});
+
+	// Referer blacklist - cancel blacklisting
+	$( document ).on( 'click', '.iewp-cancel-blacklist', function( e )
+	{
+		e.preventDefault();
+		var id = $( this ).data( 'id' );
+		$( '#iewp-ref-' + id + ' .iewp-refer-body' ).show();
+		$( '#iewp-confirm-blacklist-' + id ).remove();
 	});
 
 	// Get data for report and call report generating function
@@ -153,11 +228,11 @@ jQuery(document).ready(function($)
 		var r = '<ul>';
 		jQuery.each(data, function(i, row)
 		{
-			r += '<li id="iewp-ref-' + row.id + '" class="refer-recent"><span class="timestamp">' + row.date + '</span><a class="iewp-referer" data-id="' + row.id + '" href="#">' + row.referer + '</a>';
+			r += '<li id="iewp-ref-' + row.id + '" class="refer-recent"><span class="iewp-refer-body"><span class="timestamp">' + row.date + '</span><a class="iewp-referer" data-id="' + row.id + '" href="#">' + row.referer + '</a>';
 			r += '<span id="iewp-ref-info-' + row.id + '" class="iewp-ref-info">';
 			r += '<a target="_blank" href="http://derefer.unbubble.eu?u=' + row.referer + '">view</a> | ';
-			r += '<a data-id="' + row.id + '" href="#">blacklist</a>';
-			r += '</span></li>';
+			r += '<a class="iewp-ref-blacklist" data-id="' + row.id + '" href="#">blacklist</a>';
+			r += '</span></span></li>';
 		});
 		r += '</ul>';
 		$( '#iewp_crunchstats_report' ).html( r );
@@ -169,11 +244,11 @@ jQuery(document).ready(function($)
 		var r = '<ul>';
 		jQuery.each(data, function(i, row)
 		{
-			r += '<li id="iewp-ref-' + row.id + '" class="refer-common"><span class="count">' + row.total + '</span><a class="iewp-referer" data-id="' + row.id + '" href="#">' + row.referer + '</a>';
+			r += '<li id="iewp-ref-' + row.id + '" class="refer-common"><span class="iewp-refer-body"><span class="count">' + row.total + '</span><a class="iewp-referer" data-id="' + row.id + '" href="#">' + row.referer + '</a>';
 			r += '<span id="iewp-ref-info-' + row.id + '" class="iewp-ref-info">';
 			r += '<a target="_blank" href="http://derefer.unbubble.eu?u=' + row.referer + '">view</a> | ';
-			r += '<a data-id="' + row.id + '" href="#">blacklist</a>';
-			r += '</span></li>';
+			r += '<a class="iewp-ref-blacklist" data-id="' + row.id + '" href="#">blacklist</a>';
+			r += '</span></span></li>';
 		});
 		r += '</ul>';
 		$( '#iewp_crunchstats_report' ).html( r );

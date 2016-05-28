@@ -45,25 +45,35 @@
     color: #72777c;
 }
 
+.iewp-blacklisted img,
 .iewp_crunchstats_loading img {
     vertical-align: middle;
     margin-right: 6px;
 }
 
+.iewp-blacklist-confirm-options,
 .iewp-ref-info {
     display: block;
     margin-top: 6px;
 }
 
-.refer-recent .iewp-ref-info {
+.refer-recent .iewp-ref-info,
+.refer-recent .iewp-blacklist-confirm,
+.refer-recent .iewp-blacklisted {
     margin-left: 100px;
 }
 
-.refer-common .iewp-ref-info {
+.refer-common .iewp-ref-info,
+.refer-common .iewp-blacklist-confirm,
+.refer-common .iewp-blacklisted {
     margin-left: 60px;
 }
 
-a.iewp-referer {
+.refer-common.notify {
+    color: #46b450;
+}
+
+.iewp_crunchstats a {
     box-shadow: none;
 }
 
