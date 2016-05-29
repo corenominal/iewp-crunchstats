@@ -32,6 +32,9 @@ function iewp_crunchstats_enqueue_scripts( $hook )
 	wp_register_script( 'iewp_crunchstats_js', plugin_dir_url( __FILE__ ) . 'js/iewp_crunchstats.js', array('jquery'), '0.0.1', true );
 	wp_enqueue_script( 'iewp_crunchstats_js' );
 
+	wp_register_script( 'iewp_crunchstats_referer_options_js', plugin_dir_url( __FILE__ ) . 'js/iewp_crunchstats_referer_options.js', array('jquery'), '0.0.1', true );
+	wp_enqueue_script( 'iewp_crunchstats_referer_options_js' );
+
 	wp_enqueue_media();
 }
 add_action( 'admin_enqueue_scripts', 'iewp_crunchstats_enqueue_scripts' );
