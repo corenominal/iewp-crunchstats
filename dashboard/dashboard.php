@@ -54,6 +54,7 @@ function iewp_crunchstats_dashboard_widget_function()
 				<option data-report-type="graph-day-hour-by-hour" value="yesterday-hour-by-hour">Hits: yesterday</option>
 				<option data-report-type="graph-last-X-days" value="hits-last-7-days">Hits: last 7 days</option>
 				<option data-report-type="graph-last-X-days" value="hits-last-30-days">Hits: last 30 days</option>
+				<option data-report-type="graph-last-X-months" value="hits-last-12-months">Hits: last 12 months</option>
 				<option data-report-type="list-default" value="recently-viewed-content">Recently viewed: all</option>
                 <option data-report-type="list-default" value="recently-viewed-posts">Recently viewed: posts</option>
                 <option data-report-type="list-default" value="recently-viewed-pages">Recently viewed: pages</option>

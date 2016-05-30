@@ -101,6 +101,10 @@ jQuery(document).ready(function($)
 						iewp_crunchstats_report_graph_last_X_days( data.days, data.label ,data.labels, data.report1, data.report2 );
 						break;
 
+					case 'graph-last-X-months':
+						iewp_crunchstats_report_graph_last_X_months( data.months, data.label ,data.labels, data.report1, data.report2 );
+						break;
+
 					default:
 						$( '#iewp_crunchstats_report' ).html( '<span class="nodata"><span class="dashicons dashicons-warning"></span> Invalid report type.</span>' );
 						break;
@@ -348,5 +352,63 @@ jQuery(document).ready(function($)
 		});
 	}
 
+	function iewp_crunchstats_report_graph_last_X_months( months, label, labels, data1, data2 )
+	{
+		var header = '<h2>Total hits: ' + data1[0].hits + '</h2>';
+		var w = $( '#iewp_crunchstats_report' ).width();
+		$( '#iewp_crunchstats_report' ).html( header + '<canvas id="iewpChart" width="' + w + '" height="400"></canvas>' );
+		var ctx = $( '#iewpChart' );
 
+		// Create the hitsdata array
+		var hits = [];
+		for (var i = 0; i < months; i++)
+		{
+			hits.push( 0 );
+		}
+
+		for (var i = 0; i < labels.length; i++)
+		{
+			for (var j = 0; j < data2.length; j++)
+			{
+				if( data2[j].month === labels[i] )
+				{
+					hits[i] = data2[j].total;
+				}
+			};
+		}
+
+		var chartData =
+		{
+		    labels: labels,
+		    datasets: [
+		        {
+		            label: label,
+		            backgroundColor: "rgba(0,115,170,0.2)",
+		            borderColor: "rgba(0,115,170,1)",
+		            borderWidth: 1,
+		            hoverBackgroundColor: "rgba(0,115,170,0.4)",
+		            hoverBorderColor: "rgba(0,115,170,1)",
+		            data: hits,
+		        }
+		    ]
+		};
+
+		var options = {
+		    scales: {
+		        yAxes: [{
+		            display: true,
+		            ticks: {
+		                beginAtZero: true
+		            }
+		        }]
+		    }
+		};
+
+		var iewpBarChart = new Chart(ctx,
+		{
+		    type: 'bar',
+		    data: chartData,
+			options: options
+		});
+	}
 });
