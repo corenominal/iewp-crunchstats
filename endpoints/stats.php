@@ -132,22 +132,22 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 			$data['months'] = 12;
 			$data['label'] = 'Hits: last 12 months';
 			$data['labels'] = array();
-			for ($i=0; $i < 11; $i++)
+			$month = time();
+			for ($i = 1; $i <= 11; $i++)
 			{
-				$month = 11 - $i;
-				$timestamp = strtotime('-' . $month . ' months');
-				$data['labels'][] = date('M Y', $timestamp);
+			    $data['labels'][] = date('M Y', strtotime( date( 'Y-m-01' ) . " -$i months"));
 			}
+			$data['labels'] = array_reverse( $data['labels'] );
 			$data['labels'][] = date('M Y', time());
 
 			$sql = "SELECT COUNT(*) AS `hits`
 					  FROM `iewp_crunchstats_log`
-					  WHERE `is_bot` = 0 AND `date` > " . strtotime('11 months ago 00:00:00');
+					  WHERE `is_bot` = 0 AND `date` > " . strtotime('12 months ago 00:00:00');
 			$data['report1'] = $wpdb->get_results( $sql, ARRAY_A );
 
 			$sql = "SELECT FROM_UNIXTIME(`date`,'%b %Y') AS `month`, COUNT(*) AS `total`
 					  FROM `iewp_crunchstats_log`
-					  WHERE `is_bot` = 0 AND `date` > " . strtotime('11 months ago 00:00:00') . "
+					  WHERE `is_bot` = 0 AND `date` > " . strtotime('12 months ago 00:00:00') . "
 					  GROUP BY `month`
 					  ORDER BY date DESC";
 			$data['report2'] = $wpdb->get_results( $sql, ARRAY_A );
