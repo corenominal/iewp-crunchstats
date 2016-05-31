@@ -25,12 +25,14 @@ function iewp_crunchstats_register_endpoints()
         'methods' => 'POST',
         'callback' => 'iewp_crunchstats_endpoint_track',
     ));
-    // Endpoint:/wp-json/iewp_crunchstats/stats
+
+	// Endpoint:/wp-json/iewp_crunchstats/stats
     register_rest_route( 'iewp_crunchstats', '/stats', array(
         'methods' => 'GET',
         'callback' => 'iewp_crunchstats_endpoint_stats',
     ));
-    // Endpoint:/wp-json/iewp_crunchstats/maintenance
+
+	// Endpoint:/wp-json/iewp_crunchstats/maintenance
     register_rest_route( 'iewp_crunchstats', '/maintenance', array(
         'methods' => 'GET',
         'callback' => 'iewp_crunchstats_endpoint_maintenance',
@@ -40,6 +42,12 @@ function iewp_crunchstats_register_endpoints()
     register_rest_route( 'iewp_crunchstats', '/referer_blacklist', array(
         'methods' => 'GET',
         'callback' => 'iewp_crunchstats_endpoint_referer_blacklist',
+    ));
+
+	// Endpoint:/wp-json/iewp_crunchstats/debug
+    register_rest_route( 'iewp_crunchstats', '/debug', array(
+        'methods' => 'GET',
+        'callback' => 'iewp_crunchstats_endpoint_debug',
     ));
 }
 add_action( 'rest_api_init', 'iewp_crunchstats_register_endpoints' );
@@ -55,3 +63,6 @@ require_once( plugin_dir_path( __FILE__ ) . 'maintenance.php' );
 
 // Endpoint:/wp-json/iewp_crunchstats/referer_blacklist
 require_once( plugin_dir_path( __FILE__ ) . 'referer_blacklist.php' );
+
+// Endpoint:/wp-json/iewp_crunchstats/debug
+require_once( plugin_dir_path( __FILE__ ) . 'debug.php' );
