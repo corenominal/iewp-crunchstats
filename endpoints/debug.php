@@ -31,22 +31,24 @@ function iewp_crunchstats_endpoint_debug( $request_data )
 			if( $count->total < 100 )
 				return array( 'Error' => 'Insufficient seed data' );
 
+			$insert = 100;
 			// Grab random row, change date and insert
-			for ($i=0; $i < 10000; $i++)
+			for ($i=0; $i < $insert; $i++)
 			{
 				$sql = "SELECT * FROM `iewp_crunchstats_log`
 						ORDER BY RAND()
 						LIMIT 1";
 				$row = $wpdb->get_row( $sql, ARRAY_A );
 				unset( $row['id'] );
-				$row['date'] = rand( strtotime( '-1 year' ), time() );
+				$row['date'] = rand( strtotime( '-1 year' ), strtotime( '-11 months' ) );
+				$row['is_bot'] = 0;
 				$wpdb->insert(
 					'iewp_crunchstats_log',
 					$row,
 					array( '%d', '%s', '%d', '%s', '%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d' )
 				);
 			}
-			return array( 'Notice' => '10000 rows inserted' );
+			return array( 'Notice' => $insert . ' rows inserted' );
 			break;
 
 		default:
