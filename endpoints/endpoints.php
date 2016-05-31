@@ -24,30 +24,35 @@ function iewp_crunchstats_register_endpoints()
 	register_rest_route( 'iewp_crunchstats', '/track', array(
         'methods' => 'POST',
         'callback' => 'iewp_crunchstats_endpoint_track',
+        'show_in_index' => false,
     ));
 
 	// Endpoint:/wp-json/iewp_crunchstats/stats
     register_rest_route( 'iewp_crunchstats', '/stats', array(
         'methods' => 'GET',
         'callback' => 'iewp_crunchstats_endpoint_stats',
+        'show_in_index' => false,
     ));
 
 	// Endpoint:/wp-json/iewp_crunchstats/maintenance
     register_rest_route( 'iewp_crunchstats', '/maintenance', array(
         'methods' => 'GET',
         'callback' => 'iewp_crunchstats_endpoint_maintenance',
+        'show_in_index' => false,
     ));
 
     // Endpoint:/wp-json/iewp_crunchstats/maintenance
     register_rest_route( 'iewp_crunchstats', '/referer_blacklist', array(
         'methods' => 'GET',
         'callback' => 'iewp_crunchstats_endpoint_referer_blacklist',
+        'show_in_index' => false,
     ));
 
 	// Endpoint:/wp-json/iewp_crunchstats/debug
     register_rest_route( 'iewp_crunchstats', '/debug', array(
         'methods' => 'GET',
         'callback' => 'iewp_crunchstats_endpoint_debug',
+        'show_in_index' => false,
     ));
 }
 add_action( 'rest_api_init', 'iewp_crunchstats_register_endpoints' );
