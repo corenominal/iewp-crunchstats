@@ -1,3 +1,4 @@
 # WP CrunchStats
 
-A crunchy statistics plugin for WordPress. There is nothing here at the moment, come back soon.
+A crunchy statistics plugin for WordPress. This plugin is under development and I would not advise
+anyone to use it in its current state.
