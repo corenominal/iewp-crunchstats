@@ -76,6 +76,7 @@ function iewp_crunchstats_dashboard_widget_function()
 				<option data-report-type="list-404s-common" value="common-404-errors">404s: common</option>
                 <option disabled>──────────</option>
                 <option data-report-type="list-default" value="recent-bot-activity">Bot activity: recent</option>
+                <option data-report-type="list-popular" value="common-bot-activity">Bot activity: common</option>
             </select>
 			<button class="button iewp_crunchstats_refresh" id="iewp_crunchstats_refresh" disabled="disabled"><span class="dashicons dashicons-update"></span></button>
         </div>

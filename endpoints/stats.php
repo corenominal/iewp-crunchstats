@@ -214,6 +214,17 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
 			break;
 
+        // Common bot activity
+		case 'common-bot-activity':
+            $sql = "SELECT `title`,`name`, COUNT(*) AS `total`, `guid`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 1
+					  GROUP BY `guid`
+					  ORDER BY total DESC
+					  LIMIT 20";
+			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			break;
+
 		// Recent 404 errors
 		case 'recent-404-errors':
 			$sql = "SELECT `date` AS `timestamp`, FROM_UNIXTIME(`date`,'%b %d, %H:%i') AS `date`,`guid`
@@ -224,7 +235,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
 			break;
 
-		// Recent 404 errors
+		// Common 404 errors
 		case 'common-404-errors':
 			$sql = "SELECT COUNT(*) AS `total`, `guid`
 					  FROM `iewp_crunchstats_log`
