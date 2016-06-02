@@ -55,21 +55,27 @@ function iewp_crunchstats_dashboard_widget_function()
 				<option data-report-type="graph-last-X-days" value="hits-last-7-days">Hits: last 7 days</option>
 				<option data-report-type="graph-last-X-days" value="hits-last-30-days">Hits: last 30 days</option>
 				<option data-report-type="graph-last-X-months" value="hits-last-12-months">Hits: last 12 months</option>
+                <option disabled>---------------</option>
 				<option data-report-type="list-default" value="recently-viewed-content">Recently viewed: all</option>
                 <option data-report-type="list-default" value="recently-viewed-posts">Recently viewed: posts</option>
                 <option data-report-type="list-default" value="recently-viewed-pages">Recently viewed: pages</option>
                 <option data-report-type="list-default" value="recently-viewed-other">Recently viewed: other</option>
+                <option disabled>---------------</option>
                 <option data-report-type="list-popular" value="popular-content-all">Popular content: all</option>
                 <option data-report-type="list-popular" value="popular-content-posts">Popular content: posts</option>
                 <option data-report-type="list-popular" value="popular-content-pages">Popular content: pages</option>
                 <option data-report-type="list-popular" value="popular-content-other">Popular content: other</option>
-				<option data-report-type="list-referers" value="referers-recent">Recent referers</option>
-				<option data-report-type="list-referers-common" value="referers-common">Common referers</option>
-                <option data-report-type="list-searches" value="searches-recent">Recent searches</option>
-				<option data-report-type="list-searches-common" value="searches-common">Common searches</option>
-				<option data-report-type="list-default" value="recent-bot-activity">Recent bot activity</option>
-                <option data-report-type="list-404s" value="recent-404-errors">Recent 404 errors</option>
-				<option data-report-type="list-404s-common" value="common-404-errors">Common 404 errors</option>
+                <option disabled>---------------</option>
+				<option data-report-type="list-referers" value="referers-recent">Referers: recent</option>
+				<option data-report-type="list-referers-common" value="referers-common">Referers: common</option>
+                <option disabled>---------------</option>
+                <option data-report-type="list-searches" value="searches-recent">Searches: recent</option>
+				<option data-report-type="list-searches-common" value="searches-common">Searches: common</option>
+                <option disabled>---------------</option>
+                <option data-report-type="list-404s" value="recent-404-errors">404s: recent</option>
+				<option data-report-type="list-404s-common" value="common-404-errors">404s: common</option>
+                <option disabled>---------------</option>
+                <option data-report-type="list-default" value="recent-bot-activity">Bot activity: recent</option>
             </select>
 			<button class="button iewp_crunchstats_refresh" id="iewp_crunchstats_refresh" disabled="disabled"><span class="dashicons dashicons-update"></span></button>
         </div>
