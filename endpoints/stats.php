@@ -127,6 +127,33 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 			$data['report2'] = $wpdb->get_results( $sql, ARRAY_A );
 			break;
 
+        // Hits for the last 30 days
+		case 'hits-this-month':
+            $days_in_month = date( 't' );
+            $data['days'] = $days_in_month;
+			$data['label'] = 'Hits this month';
+			$data['labels'] = array();
+			for ( $i = 0; $i < $days_in_month; $i++ )
+			{
+				$day = $days_in_month - $i;
+				$timestamp = strtotime( date( 'Y-m-' . $day ) );
+				$data['labels'][] = date('M d', $timestamp);
+			}
+			$data['labels'] = array_reverse( $data['labels'] );
+
+			$sql = "SELECT COUNT(*) AS `hits`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `date` > " . strtotime( date( 'Y-m-01' ) . ' 00:00:00' );
+			$data['report1'] = $wpdb->get_results( $sql, ARRAY_A );
+
+			$sql = "SELECT FROM_UNIXTIME(`date`,'%b %d') AS `day`, COUNT(*) AS `total`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `date` > " . strtotime( date( 'Y-m-01' ) . ' 00:00:00' ) . "
+					  GROUP BY `day`
+					  ORDER BY date DESC";
+			$data['report2'] = $wpdb->get_results( $sql, ARRAY_A );
+			break;
+
 		// Hits for the last 12 months
 		case 'hits-last-12-months':
 			$data['months'] = 12;
