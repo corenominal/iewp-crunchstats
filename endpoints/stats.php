@@ -127,7 +127,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 			$data['report2'] = $wpdb->get_results( $sql, ARRAY_A );
 			break;
 
-        // Hits for the last 30 days
+        // Hits for current month
 		case 'hits-this-month':
             $days_in_month = date( 't' );
             $data['days'] = $days_in_month;
@@ -143,12 +143,41 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 
 			$sql = "SELECT COUNT(*) AS `hits`
 					  FROM `iewp_crunchstats_log`
-					  WHERE `is_bot` = 0 AND `date` > " . strtotime( date( 'Y-m-01' ) . ' 00:00:00' );
+					  WHERE `is_bot` = 0 AND `date` >= " . strtotime( date( 'Y-m-01' ) . ' 00:00:00' );
 			$data['report1'] = $wpdb->get_results( $sql, ARRAY_A );
 
 			$sql = "SELECT FROM_UNIXTIME(`date`,'%b %d') AS `day`, COUNT(*) AS `total`
 					  FROM `iewp_crunchstats_log`
-					  WHERE `is_bot` = 0 AND `date` > " . strtotime( date( 'Y-m-01' ) . ' 00:00:00' ) . "
+					  WHERE `is_bot` = 0 AND `date` >= " . strtotime( date( 'Y-m-01' ) . ' 00:00:00' ) . "
+					  GROUP BY `day`
+					  ORDER BY date DESC";
+			$data['report2'] = $wpdb->get_results( $sql, ARRAY_A );
+			break;
+
+        // Hits for last month
+		case 'hits-last-month':
+            $month = date( 'n', strtotime('last month') );
+            $year = date( 'Y', strtotime('last month') );
+            $days_in_month = cal_days_in_month( CAL_GREGORIAN, $month, $year );
+            $data['days'] = $days_in_month;
+			$data['label'] = 'Hits last month';
+			$data['labels'] = array();
+			for ( $i = 0; $i < $days_in_month; $i++ )
+			{
+				$day = $days_in_month - $i;
+				$timestamp = strtotime( date( $year . '-' . $month . '-' . $day ) );
+				$data['labels'][] = date('M d', $timestamp);
+			}
+			$data['labels'] = array_reverse( $data['labels'] );
+
+			$sql = "SELECT COUNT(*) AS `hits`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `date` >= " . strtotime( date( $year . '-' . $month . '-01' ) . ' 00:00:00' ) . " AND `date` <= " . strtotime( date( $year . '-' . $month . '-' . $days_in_month ) . ' 23:59:59' );
+			$data['report1'] = $wpdb->get_results( $sql, ARRAY_A );
+
+			$sql = "SELECT FROM_UNIXTIME(`date`,'%b %d') AS `day`, COUNT(*) AS `total`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `date` >= " . strtotime( date( $year . '-' . $month . '-01' ) . ' 00:00:00' ) . " AND `date` <= " . strtotime( date( $year . '-' . $month . '-' . $days_in_month ) . ' 23:59:59' ) . "
 					  GROUP BY `day`
 					  ORDER BY date DESC";
 			$data['report2'] = $wpdb->get_results( $sql, ARRAY_A );
