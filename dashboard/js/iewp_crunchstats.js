@@ -85,6 +85,10 @@ jQuery(document).ready(function($)
 						iewp_crunchstats_report_type_list_searches_common( data.report );
 						break;
 
+					case 'list-campaigns':
+						iewp_crunchstats_report_type_list_campaigns( data.report );
+						break;
+
 					case 'list-404s':
 						iewp_crunchstats_report_type_list_404s( data.report );
 						break;
@@ -198,6 +202,30 @@ jQuery(document).ready(function($)
 		$( '#iewp_crunchstats_report' ).html( r );
 	}
 
+	function iewp_crunchstats_report_type_list_campaigns( data )
+	{
+		var r = '<ul>';
+		jQuery.each(data, function(i, row)
+		{
+			var queries = row.query.split('&');
+			var campaign = {};
+			queries.forEach(function( query )
+			{
+			    query = query.split( '=' );
+			    campaign[query[0]] = decodeURIComponent( query[1] || '' );
+			});
+			JSON.parse( JSON.stringify( campaign ) );
+			r += '<li><span class="timestamp-campaign">' + row.date + '</span>';
+			r += ' <a target="_blank" href="' + row.guid + '">';
+			r += '<strong>campaign:</strong> ' + campaign.utm_campaign + '<br>';
+			r += '<strong>source:</strong> ' + campaign.utm_source + '<br>';
+			r += '<strong>medium:</strong> ' + campaign.utm_medium;
+			r += '</a>';
+			r += '</li>';
+		});
+		r += '</ul>';
+		$( '#iewp_crunchstats_report' ).html( r );
+	}
 
 	function iewp_crunchstats_report_type_list_404s_common( data )
 	{

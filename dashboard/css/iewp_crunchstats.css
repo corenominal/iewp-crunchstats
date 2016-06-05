@@ -33,6 +33,14 @@
     min-width: 100px
 }
 
+.iewp_crunchstats_report ul li span.timestamp-campaign {
+    color: #72777c;
+    display: block;
+    width: 100px;
+    height: 60px;
+    float: left;
+}
+
 .iewp_crunchstats_report ul li span.count {
     min-width: 60px;
 }

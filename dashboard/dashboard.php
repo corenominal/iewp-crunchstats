@@ -74,7 +74,10 @@ function iewp_crunchstats_dashboard_widget_function()
                 <option data-report-type="list-searches" value="searches-recent">Searches: recent</option>
 				<option data-report-type="list-searches-common" value="searches-common">Searches: common</option>
                 <option disabled>──────────</option>
-                <option data-report-type="list-404s" value="recent-404-errors">404s: recent</option>
+				<option data-report-type="list-campaigns" value="campaigns-recent">Campaigns: recent</option>
+				<option data-report-type="list-campaigns-common" value="campaigns-common">Campaigns: common</option>
+                <option disabled>──────────</option>
+				<option data-report-type="list-404s" value="recent-404-errors">404s: recent</option>
 				<option data-report-type="list-404s-common" value="common-404-errors">404s: common</option>
                 <option disabled>──────────</option>
                 <option data-report-type="list-default" value="recent-bot-activity">Bot activity: recent</option>
