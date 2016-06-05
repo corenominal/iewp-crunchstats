@@ -387,6 +387,17 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
 			break;
 
+		// Most popular campaigns
+		case 'campaigns-popular':
+			$sql = "SELECT COUNT(*) AS `total`, REPLACE(`search_string`, '?', '') AS `query`, `search_string`,`referer`,`title`,`guid`
+					  FROM `iewp_crunchstats_log`
+					  WHERE `is_bot` = 0 AND `search_string` LIKE '%utm_campaign%'
+					  GROUP BY `query`
+					  ORDER BY total DESC
+					  LIMIT 20";
+			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
+			break;
+
 		default:
 			return array( 'Error' => 'Unknown report type. Please specify a valid report type' );
 			break;
