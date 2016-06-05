@@ -318,7 +318,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 			$sql = "SELECT `title`,`name`, COUNT(*) AS `total`, `guid`
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0 AND `name` != '' AND `content_type` = 'post'
-					  GROUP BY `guid`
+					  GROUP BY `post_id`
 					  ORDER BY total DESC
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
@@ -329,7 +329,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 			$sql = "SELECT `title`,`name`, COUNT(*) AS `total`, `guid`
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0 AND `name` != '' AND `content_type` = 'page'
-					  GROUP BY `guid`
+					  GROUP BY `post_id`
 					  ORDER BY total DESC
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
