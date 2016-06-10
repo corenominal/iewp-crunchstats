@@ -4,7 +4,7 @@
  */
 function iewp_crunchstats_tracking_code()
 {
-	
+
 	if( get_option( 'iewp_crunchstats_enable' ) == 'disabled' )
 		return;
 
@@ -34,7 +34,7 @@ function iewp_crunchstats_tracking_code()
 
 	if( is_archive() )
 		$content_type = 'archive';
-	
+
 	if( is_category() )
 		$content_type = 'category';
 
@@ -52,6 +52,6 @@ function iewp_crunchstats_tracking_code()
 
 	require_once( plugin_dir_path( __FILE__ ) . 'tracking_code_inc.php' );
 
-	echo str_replace( array("\r", "\n"), '', $tracking_code );
+	echo str_replace( array("\r", "\n"), '', $tracking_code ) . "\n";
 }
 add_action( 'wp_footer', 'iewp_crunchstats_tracking_code' );
