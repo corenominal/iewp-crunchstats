@@ -5,6 +5,11 @@
 function iewp_crunchstats_tracking_code()
 {
 
+	// Test - preview page?
+	if( is_preview() == true )
+		return;
+
+	// Test - tracking enabled?
 	if( get_option( 'iewp_crunchstats_enable' ) == 'disabled' )
 		return;
 
