@@ -286,7 +286,7 @@ function iewp_crunchstats_endpoint_stats( $request_data )
 			$sql = "SELECT `date` AS `timestamp`, FROM_UNIXTIME(`date`,'%b %d, %H:%i') AS `date`,`guid`
 					  FROM `iewp_crunchstats_log`
 					  WHERE `is_bot` = 0 AND `content_type` = '404'
-					  ORDER BY `date` DESC
+					  ORDER BY `timestamp` DESC
 					  LIMIT 20";
 			$data['report'] = $wpdb->get_results( $sql, ARRAY_A );
 			break;
