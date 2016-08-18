@@ -1,10 +1,11 @@
 <?php
+if ( ! defined( 'WPINC' ) ) { die('Direct access prohibited!'); }
 /**
  * Add submenu item to the default WordPress "Settings" menu.
  */
 function iewp_crunchstats_menu()
 {
-	add_submenu_page( 
+	add_submenu_page(
 		'options-general.php', // parent slug to attach to
 		'CrunchStats', // page title
 		'CrunchStats', // menu title
@@ -24,16 +25,16 @@ add_action( 'admin_menu', 'iewp_crunchstats_menu' );
 function iewp_crunchstats_callback()
 {
 	?>
-	
+
 		<div class="wrap">
 			<h1>WordPress CrunchStats</h1>
 
 			<p>A crunchy statistics plugin for WordPress.</p>
 
 			<hr>
-			
+
 			<form method="POST" action="options.php">
-		
+
 				<?php settings_fields( 'iewp_crunchstats_group' ); ?>
 				<?php do_settings_sections( 'iewp_crunchstats_options' ); ?>
 				<?php submit_button(); ?>
@@ -44,12 +45,12 @@ function iewp_crunchstats_callback()
 
 			<h3>Manual Tracking Code</h3>
 
-			<p>By default, CrunchStats will automatically insert its tracking code into any WordPress posts and pages. 
-			The code below is provided for any static documents that sit outside of WordPress. Pages tracked with this code 
+			<p>By default, CrunchStats will automatically insert its tracking code into any WordPress posts and pages.
+			The code below is provided for any static documents that sit outside of WordPress. Pages tracked with this code
 			will be classified as "other". Simply copy and paste this code into any static documents you want to track.</p>
 
 			<p><strong>Note:</strong> only use this for documents hosted on <code><?php echo site_url() ?></code></p>
-			
+
 			<table class="form-table">
 				<tbody>
 					<tr>
@@ -78,9 +79,9 @@ function iewp_crunchstats_register()
 	register_setting( 'iewp_crunchstats_group', 'iewp_crunchstats_track_logged_in');
 	register_setting( 'iewp_crunchstats_group', 'iewp_crunchstats_record_ip_addresses');
 	register_setting( 'iewp_crunchstats_group', 'iewp_crunchstats_apikey', 'iewp_crunchstats_validate_api_key');
-	
+
 	add_settings_section( 'iewp-crunchstats-options', '', 'iewp_crunchstats_options', 'iewp_crunchstats_options' );
-	
+
 	add_settings_field( 'iewp-crunchstats-enable', 'Tracking Enabled', 'iewp_crunchstats_enable', 'iewp_crunchstats_options', 'iewp-crunchstats-options' );
 	add_settings_field( 'iewp-crunchstats-tack-logged-in', 'Track WP Users', 'iewp_crunchstats_track_logged_in', 'iewp_crunchstats_options', 'iewp-crunchstats-options' );
 	add_settings_field( 'iewp-crunchstats-record-ip-addresses', 'Log IP Addresses', 'iewp_crunchstats_record_ip_addresses', 'iewp_crunchstats_options', 'iewp-crunchstats-options' );

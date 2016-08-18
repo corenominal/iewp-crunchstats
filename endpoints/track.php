@@ -1,9 +1,10 @@
 <?php
+if ( ! defined( 'WPINC' ) ) { die('Direct access prohibited!'); }
 /**
  * Track the hit
  */
 function iewp_crunchstats_endpoint_track( $request_data )
-{	
+{
 	global $iewp_crunchstats_logged_in;
 
 	if( get_option( 'iewp_crunchstats_track_logged_in' ) == 'disabled' && $iewp_crunchstats_logged_in == true )
@@ -22,7 +23,7 @@ function iewp_crunchstats_endpoint_track( $request_data )
 		$data['ip'] = '';
 
 	// Fugly, may look at this again
-	$data['new_session'] = 0; 
+	$data['new_session'] = 0;
 	if( !isset( $_COOKIE['iewp_crunchstats_session'] ) )
 	{
 		$data['new_session'] = 1;
@@ -35,10 +36,10 @@ function iewp_crunchstats_endpoint_track( $request_data )
 	{
 		$data['is_bot'] = 1;
 	}
-	
+
 	// Sanity checks
 	$keys = array( 'guid','title','content_type','name','post_id','user_agent','search_string','referer','window_width','window_height','date','ip','new_session','is_bot' );
-	
+
 	foreach ($keys as $key)
 	{
 		if( !array_key_exists( $key, $data ) )

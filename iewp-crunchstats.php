@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'WPINC' ) ) { die('Direct access prohibited!'); }
 /**
  * Plugin Name: IEWP CrunchStats
  * Plugin URI: https://github.com/corenominal/iewp-crunchstats

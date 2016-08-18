@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'WPINC' ) ) { die('Direct access prohibited!'); }
 
 $endpoint = site_url('/wp-json/iewp_crunchstats/track');
 
